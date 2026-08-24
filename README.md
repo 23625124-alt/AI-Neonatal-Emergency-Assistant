@@ -1,36 +1,72 @@
-# AI-Powered Neonatal Emergency Assistant: XAI Module
+1. AI-Neonatal-Emergency-Assistant
 
-This repository contains an Explainable AI research prototype and a local FastAPI service for neonatal monitoring, risk support, care guidance, and reminders. It does not provide clinical diagnosis, a React/React Native client, MongoDB Atlas persistence, or Firebase notifications yet.
+An AI-powered neonatal healthcare assistant designed to support
+early identification of potential neonatal health risks through
+continuous monitoring, explainable AI, and intelligent care
+decision support.
 
-## Setup
+2. Problem
 
-```powershell
-cd C:\Users\madhu\Downloads\AI-Neonatal-XAI
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-```
+Newborns are vulnerable to health complications during the first
+28 days of life. Parents and caregivers may find it difficult to
+continuously monitor multiple health parameters and understand
+when a change could indicate a potential risk. Healthcare
+professionals also need clear and understandable information to
+support timely assessment.
 
-The source dataset is copied to `data/raw/neonatal_model_candidate.csv`. The original file in Downloads is never modified.
+3. Proposed Solution
 
-## Run the workflow
+The AI-Neonatal-Emergency-Assistant combines health monitoring,
+machine-learning-based risk assessment, and explainable AI to
+provide understandable health insights for parents and
+healthcare professionals.
 
-```powershell
-python -m preprocessing.preprocess
-python -m models.train_model
-python -m evaluation.evaluate_model
-python -m explainability.explain --row-index 0
-python -m explainability.explain --trend
-python -m explainability.explain --row-index 0 --what-if temperature_c=37.0
-uvicorn api.main:app --reload
-```
+4. Project Modules
 
-The API exposes `GET /health`, `POST /monitoring/readings`, `GET /monitoring/{infant_id}`, `POST /care/reminders`, and `GET /care/{infant_id}`. Interactive API documentation is available at `http://127.0.0.1:8000/docs` while the server is running. Monitoring data is stored locally under `data/processed/` for development.
+4.1. Continuous Neonatal Health Monitoring
+Monitors relevant neonatal health parameters and tracks changes
+over time to identify potentially concerning trends.
 
-The scripts save prepared data, a quality report, a model, evaluation metrics, and explanation files under `data/processed/`, `models/`, `evaluation/`, and `explainability/`.
+4.2. Explainable AI-Based Risk Assessment
+Uses machine learning to assess potential neonatal health risks
+and Explainable AI (XAI) to show the important factors that
+influenced an individual prediction.
 
-## Important limitations
+4.3. Intelligent Neonatal Care & Decision Support
+Provides supportive neonatal care information and decision-support
+features based on available health information.
 
-This is a research and learning prototype. It does not diagnose disease, replace clinicians, or establish clinical accuracy. The target-generation method, data provenance, measurement validity, and prediction time point must be reviewed by the project team. The current holdout evaluation produces perfect or near-perfect metrics and is flagged for target-leakage or synthetic-label review. SHAP explanations describe this model's learned associations; they are not causal or clinical explanations. Suspicious values are reported for review rather than silently changed.
+5.Technology Stack
 
-The API reading schema currently collects fewer fields than the training dataset. Missing model fields use development-time defaults for prediction and must be added to the API contract or handled with an approved missing-data strategy before real-world evaluation.
+- Python
+- Scikit-learn
+- XGBoost
+- SHAP
+- FastAPI
+- React.js
+- React Native
+- MongoDB Atlas
+- Firebase Cloud Messaging
+
+6. Project Architecture
+
+The three modules will be developed independently and integrated
+into a unified neonatal healthcare platform.
+
+```text
+Continuous Monitoring
+        │
+        ├──────────────┐
+        │              │
+        ▼              ▼
+Health Data ───► Risk Prediction
+                       │
+                       ▼
+                  Explainable AI
+                       │
+                       ▼
+             Understandable Insights
+                       │
+             ┌─────────┴─────────┐
+             ▼                   ▼
+        Parent App          Doctor Dashboard
