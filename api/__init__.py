@@ -1,1 +1,0 @@
-"""FastAPI service for the neonatal emergency assistant."""
