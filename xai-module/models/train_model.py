@@ -51,7 +51,7 @@ def train_model() -> dict:
     test_data[TARGET] = test_y.to_numpy()
     test_data.to_csv(SPLIT_PATH, index=False)
     metadata = {
-        "source": str(OUTPUT),
+        "source": OUTPUT.relative_to(PROJECT_ROOT).as_posix(),
         "target": TARGET,
         "feature_columns": data.columns.tolist(),
         "categorical_columns": categorical,

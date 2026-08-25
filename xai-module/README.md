@@ -5,7 +5,7 @@ This repository contains an Explainable AI research prototype and a local FastAP
 ## Setup
 
 ```powershell
-cd C:\Users\madhu\Downloads\AI-Neonatal-XAI
+cd path\to\AI-Neonatal-XAI
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt

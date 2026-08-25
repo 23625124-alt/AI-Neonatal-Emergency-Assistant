@@ -1,0 +1,86 @@
+{
+  "rows_explained": 600,
+  "global_feature_importance": [
+    {
+      "feature": "numeric__jaundice_level_mg_dl",
+      "mean_absolute_shap": 0.21753591142252426
+    },
+    {
+      "feature": "numeric__age_days",
+      "mean_absolute_shap": 0.08163393119800666
+    },
+    {
+      "feature": "numeric__heart_rate_bpm",
+      "mean_absolute_shap": 0.08135171410147123
+    },
+    {
+      "feature": "numeric__oxygen_saturation",
+      "mean_absolute_shap": 0.07856013260998607
+    },
+    {
+      "feature": "numeric__weight_kg",
+      "mean_absolute_shap": 0.01753978706281296
+    },
+    {
+      "feature": "numeric__temperature_c",
+      "mean_absolute_shap": 0.009201958227663821
+    },
+    {
+      "feature": "numeric__birth_length_cm",
+      "mean_absolute_shap": 0.006972675995743147
+    },
+    {
+      "feature": "numeric__length_cm",
+      "mean_absolute_shap": 0.006678776681074869
+    },
+    {
+      "feature": "numeric__birth_weight_kg",
+      "mean_absolute_shap": 0.0049206750175608506
+    },
+    {
+      "feature": "numeric__immunizations_done",
+      "mean_absolute_shap": 0.004363076827947518
+    },
+    {
+      "feature": "numeric__respiratory_rate_bpm",
+      "mean_absolute_shap": 0.003997808781455143
+    },
+    {
+      "feature": "numeric__head_circumference_cm",
+      "mean_absolute_shap": 0.0037079395514911483
+    },
+    {
+      "feature": "numeric__gestational_age_weeks",
+      "mean_absolute_shap": 0.0028742455499962357
+    },
+    {
+      "feature": "numeric__birth_head_circumference_cm",
+      "mean_absolute_shap": 0.0025996396404440766
+    },
+    {
+      "feature": "numeric__stool_count",
+      "mean_absolute_shap": 0.002478750953232914
+    },
+    {
+      "feature": "numeric__feeding_frequency_per_day",
+      "mean_absolute_shap": 0.0022746273451468312
+    },
+    {
+      "feature": "numeric__urine_output_count",
+      "mean_absolute_shap": 0.002253962510587222
+    },
+    {
+      "feature": "categorical__feeding_type_Formula",
+      "mean_absolute_shap": 0.0014466703503476612
+    },
+    {
+      "feature": "categorical__feeding_type_Mixed",
+      "mean_absolute_shap": 0.0009304971829951406
+    },
+    {
+      "feature": "categorical__feeding_type_Breastfeeding",
+      "mean_absolute_shap": 0.0007145937906211068
+    }
+  ],
+  "warning": "This trend summarizes model behavior on the held-out sample; it is not clinical importance."
+}

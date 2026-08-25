@@ -1,5 +1,5 @@
 {
-  "source": "C:\\Users\\madhu\\Downloads\\AI-Neonatal-XAI\\data\\processed\\neonatal_prepared.csv",
+  "source": "data/processed/neonatal_prepared.csv",
   "target": "risk_level",
   "feature_columns": [
     "gender",
