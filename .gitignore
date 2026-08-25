@@ -29,3 +29,6 @@ Thumbs.db
 # Local logs and temporary files
 *.log
 *.tmp
+
+# Internal AI handoff notes
+PROJECT_HANDOFF_FOR_CHATGPT.md
