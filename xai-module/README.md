@@ -25,7 +25,7 @@ python -m explainability.explain --row-index 0 --what-if temperature_c=37.0
 uvicorn api.main:app --reload
 ```
 
-The API exposes `GET /health`, `POST /monitoring/readings`, `GET /monitoring/{infant_id}`, `POST /care/reminders`, and `GET /care/{infant_id}`. Interactive API documentation is available at `http://127.0.0.1:8000/docs` while the server is running. Monitoring data is stored locally under `data/processed/` for development.
+The API exposes `GET /health`, `POST /monitoring/readings`, `GET /monitoring/{infant_id}`, `GET /xai/global`, `POST /xai/what-if`, `POST /care/reminders`, and `GET /care/{infant_id}`. Interactive API documentation is available at `http://127.0.0.1:8000/docs` while the server is running. Monitoring data is stored locally under `data/processed/` for development.
 
 The scripts save prepared data, a quality report, a model, evaluation metrics, and explanation files under `data/processed/`, `models/`, `evaluation/`, and `explainability/`.
 

@@ -1,4 +1,78 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Module 3: React Native Monitoring Client
+
+This module is the React Native client for the AI-Neonatal-XAI research prototype. It sends complete manual neonatal readings to the existing FastAPI backend and renders the returned Random Forest prediction, SHAP contributions, prototype alert, and monitoring history.
+
+This is not a medical diagnostic application. It does not integrate physical sensors, MongoDB, Firebase, or clinical workflows.
+
+## Current Features
+
+- Manual form for all 21 model input features.
+- Required-field and numeric validation with no invented model defaults.
+- `simulated: false` for manual readings.
+- Typed API client for `POST /monitoring/readings`, `GET /monitoring/{infant_id}`, `GET /xai/global`, and `POST /xai/what-if`.
+- Prediction and probability display.
+- SHAP top-contribution display.
+- Global SHAP importance screen.
+- Temperature what-if analysis on the result screen.
+- Prototype alert and non-diagnostic research warning.
+- Monitoring-history view.
+- Backend/network error handling.
+
+The software simulator remains in `../xai-module/monitoring/simulator.py` and sends `simulated: true` readings to the same endpoint. The React Native app does not duplicate simulator or model logic.
+
+## Backend URL
+
+The default URL is configured in `src/config/environment.ts`:
+
+- Android emulator: `http://10.0.2.2:8000`
+- iOS simulator: `http://127.0.0.1:8000`
+
+Use a host LAN address for a physical development device. The FastAPI server must be running separately.
+
+## Run and Test
+
+```powershell
+npm install
+npm start
+```
+
+In another terminal, run the native target:
+
+```powershell
+npm run android
+# or
+npm run ios
+```
+
+Run checks:
+
+```powershell
+npm test -- --runInBand
+npm run lint
+npx tsc --noEmit
+```
+
+The current environment validated Jest, ESLint, and TypeScript. Native Android/iOS builds require the platform toolchains and were not run here.
+
+## API Flow
+
+```text
+Manual form
+	-> typed fetch client
+	-> POST /monitoring/readings
+	-> FastAPI validation
+	-> existing Random Forest
+	-> existing SHAP service
+	-> prediction + explanation result
+```
+
+Global importance uses `GET /xai/global`. What-if analysis uses `POST /xai/what-if` with the complete reading and a numeric feature change.
+
+The training dataset is for model development/evaluation. New manual or simulated readings are application inputs and are not the training dataset or a live patient database.
+
+## Safety Boundary
+
+Thresholds and alerts are demonstration rules, not medically validated thresholds. SHAP values describe model associations, not causes or clinical advice. Clinical validation, authentication, secure persistence, physical sensors, and production deployment remain future scope.
 
 # Getting Started
 
