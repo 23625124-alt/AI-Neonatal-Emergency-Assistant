@@ -10,6 +10,10 @@ import {
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import CarePlanScreen from './screens/CarePlanScreen';
+import RemindersScreen from './screens/RemindersScreen';
+import AIGuidanceScreen from './screens/AIGuidanceScreen';
+import EmergencySupportScreen from './screens/EmergencySupportScreen';
+import BabyHealthScreen from './screens/BabyHealthScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +38,9 @@ function HomeScreen({navigation}: any) {
         <Text style={styles.sectionTitle}>Quick Actions</Text>
 
         <View style={styles.cardContainer}>
-          <TouchableOpacity style={styles.card}>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation.navigate('BabyHealth')}>
             <Text style={styles.cardIcon}>❤️</Text>
             <Text style={styles.cardTitle}>Baby Health</Text>
             <Text style={styles.cardText}>
@@ -52,7 +58,9 @@ function HomeScreen({navigation}: any) {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.card}>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation.navigate('Reminders')}>
             <Text style={styles.cardIcon}>⏰</Text>
             <Text style={styles.cardTitle}>Reminders</Text>
             <Text style={styles.cardText}>
@@ -60,7 +68,9 @@ function HomeScreen({navigation}: any) {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.card}>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation.navigate('AIGuidance')}>
             <Text style={styles.cardIcon}>🤖</Text>
             <Text style={styles.cardTitle}>AI Guidance</Text>
             <Text style={styles.cardText}>
@@ -69,12 +79,14 @@ function HomeScreen({navigation}: any) {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.alertCard}>
+        <TouchableOpacity
+          style={styles.alertCard}
+          onPress={() => navigation.navigate('EmergencySupport')}>
           <Text style={styles.alertTitle}>🚨 Emergency Support</Text>
           <Text style={styles.alertText}>
             Get timely alerts when abnormal health conditions are detected.
           </Text>
-        </View>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -91,9 +103,33 @@ function App() {
         />
 
         <Stack.Screen
+          name="BabyHealth"
+          component={BabyHealthScreen}
+          options={{title: 'Baby Health'}}
+        />
+
+        <Stack.Screen
           name="CarePlan"
           component={CarePlanScreen}
           options={{title: 'Care Plan'}}
+        />
+
+        <Stack.Screen
+          name="Reminders"
+          component={RemindersScreen}
+          options={{title: 'Smart Reminders'}}
+        />
+
+        <Stack.Screen
+          name="AIGuidance"
+          component={AIGuidanceScreen}
+          options={{title: 'AI Guidance'}}
+        />
+
+        <Stack.Screen
+          name="EmergencySupport"
+          component={EmergencySupportScreen}
+          options={{title: 'Emergency Support'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -187,6 +223,7 @@ const styles = StyleSheet.create({
     padding: 18,
     borderRadius: 16,
     backgroundColor: '#FFF1F2',
+    elevation: 3,
   },
 
   alertTitle: {
