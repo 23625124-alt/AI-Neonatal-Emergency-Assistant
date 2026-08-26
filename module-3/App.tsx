@@ -7,12 +7,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import CarePlanScreen from './screens/CarePlanScreen';
 
-function App() {
+const Stack = createNativeStackNavigator();
+
+function HomeScreen({navigation}: any) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-
         <View style={styles.header}>
           <Text style={styles.title}>Neonatal Care Assistant</Text>
           <Text style={styles.subtitle}>
@@ -38,7 +42,9 @@ function App() {
             </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.card}>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation.navigate('CarePlan')}>
             <Text style={styles.cardIcon}>🍼</Text>
             <Text style={styles.cardTitle}>Care Plan</Text>
             <Text style={styles.cardText}>
@@ -69,9 +75,28 @@ function App() {
             Get timely alerts when abnormal health conditions are detected.
           </Text>
         </View>
-
       </ScrollView>
     </SafeAreaView>
+  );
+}
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="CarePlan"
+          component={CarePlanScreen}
+          options={{title: 'Care Plan'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
