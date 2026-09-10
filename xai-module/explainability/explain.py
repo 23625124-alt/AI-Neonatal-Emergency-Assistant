@@ -20,6 +20,56 @@ def transformed_feature_names(model) -> list[str]:
     return transformer.get_feature_names_out().tolist()
 
 
+def predict_input(model_input: pd.DataFrame) -> dict:
+    model = joblib.load(MODEL_PATH)
+    expected = model.named_steps["preprocessor"].feature_names_in_.tolist()
+    missing = [column for column in expected if column not in model_input.columns]
+    if missing:
+        raise ValueError(f"Missing model features: {', '.join(missing)}")
+    model_input = model_input[expected]
+    classifier = model.named_steps["classifier"]
+    class_index = list(classifier.classes_).index("at risk")
+    return {
+        "prediction": model.predict(model_input)[0],
+        "probability_at_risk": float(model.predict_proba(model_input)[0, class_index]),
+    }
+
+
+def explain_prediction(model_input: pd.DataFrame) -> dict:
+    """Predict and explain one fully specified model input row."""
+    model = joblib.load(MODEL_PATH)
+    expected = model.named_steps["preprocessor"].feature_names_in_.tolist()
+    missing = [column for column in expected if column not in model_input.columns]
+    if missing:
+        raise ValueError(f"Missing model features: {', '.join(missing)}")
+    model_input = model_input[expected]
+    transformed = model.named_steps["preprocessor"].transform(model_input)
+    classifier = model.named_steps["classifier"]
+    shap_values = shap.TreeExplainer(classifier).shap_values(transformed)
+    class_index = list(classifier.classes_).index("at risk")
+    values = shap_values[class_index][0] if isinstance(shap_values, list) else shap_values[0, :, class_index]
+    contributions = sorted(
+        ({"feature": name, "shap_value": float(value)} for name, value in zip(transformed_feature_names(model), values)),
+        key=lambda item: abs(item["shap_value"]),
+        reverse=True,
+    )
+    return {
+        "top_contributions": contributions[:15],
+        "warning": "SHAP values describe model associations, not causes or clinical advice.",
+    }
+
+
+def explain_what_if(model_input: pd.DataFrame, changes: dict[str, float]) -> dict:
+    updated = model_input.copy()
+    for column, value in changes.items():
+        if column not in updated.columns:
+            raise ValueError(f"Unknown feature: {column}")
+        updated.loc[:, column] = value
+    result = {**predict_input(updated), **explain_prediction(updated)}
+    result["what_if_changes"] = changes
+    return result
+
+
 def explain_row(row_index: int, what_if: dict[str, float] | None = None) -> dict:
     model = joblib.load(MODEL_PATH)
     test_data = pd.read_csv(SPLIT_PATH)
