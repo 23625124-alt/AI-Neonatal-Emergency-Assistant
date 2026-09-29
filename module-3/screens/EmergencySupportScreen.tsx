@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+  Alert,
+  Linking,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -9,11 +11,60 @@ import {
 } from 'react-native';
 
 function EmergencySupportScreen() {
+  const handleEmergencyCall = () => {
+    Alert.alert(
+      'Emergency Call',
+      'Do you want to open the phone dialer for emergency services?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Continue',
+          onPress: async () => {
+            const phoneNumber = '112';
+
+            const supported = await Linking.canOpenURL(
+              `tel:${phoneNumber}`,
+            );
+
+            if (supported) {
+              Linking.openURL(`tel:${phoneNumber}`);
+            } else {
+              Alert.alert(
+                'Call Not Available',
+                'This device cannot make phone calls.',
+              );
+            }
+          },
+        },
+      ],
+    );
+  };
+
+  const handleContactProvider = () => {
+    Alert.alert(
+      'Healthcare Support',
+      'Please contact your healthcare provider or local emergency medical service if your baby needs urgent attention.',
+      [
+        {
+          text: 'OK',
+          style: 'default',
+        },
+      ],
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContent}>
+        
         <View style={styles.header}>
           <Text style={styles.title}>Emergency Support 🚨</Text>
+
           <Text style={styles.subtitle}>
             Quick guidance when urgent attention may be needed
           </Text>
@@ -21,7 +72,9 @@ function EmergencySupportScreen() {
 
         <View style={styles.alertCard}>
           <Text style={styles.alertIcon}>🚨</Text>
+
           <Text style={styles.alertTitle}>Emergency Warning</Text>
+
           <Text style={styles.alertText}>
             If your baby is having severe breathing difficulty, is
             unresponsive, has a seizure, or appears seriously unwell, seek
@@ -33,8 +86,10 @@ function EmergencySupportScreen() {
 
         <View style={styles.signCard}>
           <Text style={styles.signIcon}>🫁</Text>
+
           <View style={styles.signContent}>
             <Text style={styles.signTitle}>Breathing Difficulty</Text>
+
             <Text style={styles.signText}>
               Watch for severe difficulty breathing, pauses in breathing, or
               unusual breathing patterns.
@@ -44,8 +99,10 @@ function EmergencySupportScreen() {
 
         <View style={styles.signCard}>
           <Text style={styles.signIcon}>🌡️</Text>
+
           <View style={styles.signContent}>
             <Text style={styles.signTitle}>Abnormal Temperature</Text>
+
             <Text style={styles.signText}>
               Unusual temperature changes in a newborn should be assessed by a
               healthcare professional.
@@ -55,8 +112,12 @@ function EmergencySupportScreen() {
 
         <View style={styles.signCard}>
           <Text style={styles.signIcon}>😴</Text>
+
           <View style={styles.signContent}>
-            <Text style={styles.signTitle}>Unusual Unresponsiveness</Text>
+            <Text style={styles.signTitle}>
+              Unusual Unresponsiveness
+            </Text>
+
             <Text style={styles.signText}>
               Seek urgent help if the baby is unusually difficult to wake or
               does not respond normally.
@@ -66,8 +127,10 @@ function EmergencySupportScreen() {
 
         <View style={styles.signCard}>
           <Text style={styles.signIcon}>🍼</Text>
+
           <View style={styles.signContent}>
             <Text style={styles.signTitle}>Feeding Problems</Text>
+
             <Text style={styles.signText}>
               Significant feeding difficulty or a sudden change in feeding
               behavior should be discussed with a healthcare professional.
@@ -75,15 +138,34 @@ function EmergencySupportScreen() {
           </View>
         </View>
 
-        <TouchableOpacity style={styles.helpButton}>
-          <Text style={styles.helpButtonText}>📞 Contact Healthcare Provider</Text>
+        {/* Emergency Call Button */}
+
+        <TouchableOpacity
+          style={styles.emergencyCallButton}
+          onPress={handleEmergencyCall}
+          activeOpacity={0.8}>
+          <Text style={styles.emergencyCallButtonText}>
+            📞 Call Emergency Services
+          </Text>
+        </TouchableOpacity>
+
+        {/* Healthcare Provider Button */}
+
+        <TouchableOpacity
+          style={styles.helpButton}
+          onPress={handleContactProvider}
+          activeOpacity={0.8}>
+          <Text style={styles.helpButtonText}>
+            👨‍⚕️ Contact Healthcare Provider
+          </Text>
         </TouchableOpacity>
 
         <View style={styles.noteCard}>
           <Text style={styles.noteTitle}>Important</Text>
+
           <Text style={styles.noteText}>
-            This app provides decision-support information and does not replace
-            professional medical diagnosis or emergency services.
+            This app provides decision-support information and does not
+            replace professional medical diagnosis or emergency services.
           </Text>
         </View>
       </ScrollView>
@@ -95,6 +177,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5F8FA',
+  },
+
+  scrollContent: {
+    paddingBottom: 20,
   },
 
   header: {
@@ -182,13 +268,30 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
 
-  helpButton: {
+  emergencyCallButton: {
     marginHorizontal: 20,
     marginTop: 8,
     padding: 16,
     borderRadius: 14,
+    backgroundColor: '#991B1B',
+    alignItems: 'center',
+    elevation: 3,
+  },
+
+  emergencyCallButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+
+  helpButton: {
+    marginHorizontal: 20,
+    marginTop: 12,
+    padding: 16,
+    borderRadius: 14,
     backgroundColor: '#BE123C',
     alignItems: 'center',
+    elevation: 3,
   },
 
   helpButtonText: {
