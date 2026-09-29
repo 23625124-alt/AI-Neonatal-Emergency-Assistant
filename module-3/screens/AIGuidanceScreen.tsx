@@ -51,7 +51,12 @@ function AIGuidanceScreen() {
       setSelected(type);
       setLoading(true);
 
-      const response = await API.get(`/care/${infantId}`);
+      // Send the selected guidance type to the backend
+      const response = await API.get(`/care/${infantId}`, {
+        params: {
+          type: type,
+        },
+      });
 
       setGuidance(response.data.guidance || []);
     } catch (error) {
