@@ -38,6 +38,24 @@ test('renders correctly', async () => {
   });
 });
 
+test('opens the care and health support views', async () => {
+  let renderer: ReactTestRenderer.ReactTestRenderer;
+  await ReactTestRenderer.act(() => {
+    renderer = ReactTestRenderer.create(<App />);
+  });
+  await ReactTestRenderer.act(() => {
+    renderer.root.findByProps({testID: 'care-plan'}).props.onPress();
+  });
+  expect(renderer!.root.findAllByProps({children: 'Daily Care Plan 🍼'}).length).toBeGreaterThan(0);
+  await ReactTestRenderer.act(() => {
+    renderer.root.findAllByType(Button)[0].props.onPress();
+  });
+  await ReactTestRenderer.act(() => {
+    renderer.root.findByProps({testID: 'care-emergency'}).props.onPress();
+  });
+  expect(renderer!.root.findAllByProps({children: 'Emergency Support 🚨'}).length).toBeGreaterThan(0);
+});
+
 test('opens the manual form with all model fields', async () => {
   let renderer: ReactTestRenderer.ReactTestRenderer;
   await ReactTestRenderer.act(() => {

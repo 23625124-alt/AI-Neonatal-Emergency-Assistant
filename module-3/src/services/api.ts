@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '../config/environment';
-import { GlobalExplanation, HistoryResponse, MonitoringResponse, NeonatalReadingPayload, WhatIfResponse } from '../types/api';
+import { BabyAuthResponse, BabyProfilePayload, CareGuidance, GlobalExplanation, HistoryResponse, MonitoringResponse, NeonatalReadingPayload, QuickReadingPayload, Reminder, ReminderPayload, WhatIfResponse } from '../types/api';
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
   let response: Response;
@@ -36,4 +36,28 @@ export function getWhatIfExplanation(reading: NeonatalReadingPayload, changes: R
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ reading, changes }),
   });
+}
+
+export function getCareGuidance(infantId: string): Promise<CareGuidance> {
+  return request<CareGuidance>(`/care/${encodeURIComponent(infantId)}`);
+}
+
+export function createReminder(reminder: ReminderPayload): Promise<Reminder> {
+  return request<Reminder>('/care/reminders', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(reminder),
+  });
+}
+
+export function registerBaby(profile: BabyProfilePayload): Promise<BabyAuthResponse> {
+  return request<BabyAuthResponse>('/babies/register', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(profile)});
+}
+
+export function loginBaby(infantId: string, password: string): Promise<BabyAuthResponse> {
+  return request<BabyAuthResponse>('/babies/login', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({infant_id: infantId, password})});
+}
+
+export function submitQuickReading(reading: QuickReadingPayload): Promise<MonitoringResponse> {
+  return request<MonitoringResponse>('/monitoring/quick-readings', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(reading)});
 }

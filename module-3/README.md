@@ -1,6 +1,6 @@
-# Module 3: React Native Monitoring Client
+# Module 3: Care and Health Support Client
 
-This module is the React Native client for the AI-Neonatal-XAI research prototype. It sends complete manual neonatal readings to the existing FastAPI backend and renders the returned Random Forest prediction, SHAP contributions, prototype alert, and monitoring history.
+This module is the React Native client for the AI-Neonatal-XAI research prototype. It provides parent/caregiver-facing care support while consuming the existing monitoring, prediction, explainability, guidance, and reminder APIs.
 
 This is not a medical diagnostic application. It does not integrate physical sensors, MongoDB, Firebase, or clinical workflows.
 
@@ -17,6 +17,11 @@ This is not a medical diagnostic application. It does not integrate physical sen
 - Prototype alert and non-diagnostic research warning.
 - Monitoring-history view.
 - Backend/network error handling.
+- Baby Health overview.
+- Care Plan information.
+- Reminder creation through the existing care API.
+- AI Guidance loaded from the existing care-guidance endpoint when an infant ID is available.
+- Emergency Support information with professional-care escalation wording.
 
 The software simulator remains in `../xai-module/monitoring/simulator.py` and sends `simulated: true` readings to the same endpoint. The React Native app does not duplicate simulator or model logic.
 
@@ -58,21 +63,18 @@ The current environment validated Jest, ESLint, and TypeScript. Native Android/i
 
 ```text
 Manual form
-	-> typed fetch client
-	-> POST /monitoring/readings
-	-> FastAPI validation
-	-> existing Random Forest
-	-> existing SHAP service
-	-> prediction + explanation result
+	-> existing monitoring API
+	-> prediction + SHAP result
+	-> care guidance and reminder support
 ```
 
-Global importance uses `GET /xai/global`. What-if analysis uses `POST /xai/what-if` with the complete reading and a numeric feature change.
+Global importance uses `GET /xai/global`. What-if analysis uses `POST /xai/what-if` with the complete reading and a numeric feature change. AI Guidance uses `GET /care/{infant_id}` and reminder creation uses `POST /care/reminders`.
 
 The training dataset is for model development/evaluation. New manual or simulated readings are application inputs and are not the training dataset or a live patient database.
 
 ## Safety Boundary
 
-Thresholds and alerts are demonstration rules, not medically validated thresholds. SHAP values describe model associations, not causes or clinical advice. Clinical validation, authentication, secure persistence, physical sensors, and production deployment remain future scope.
+Thresholds and alerts are demonstration rules, not medically validated thresholds. Care content is informational prototype guidance, not medical advice. SHAP values describe model associations, not causes or clinical advice. Clinical validation, authentication, secure persistence, physical sensors, and production deployment remain future scope.
 
 # Getting Started
 

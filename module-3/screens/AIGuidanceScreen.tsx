@@ -4,11 +4,26 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  ActivityIndicator,
   TouchableOpacity,
   View,
 } from 'react-native';
+import {getCareGuidance} from '../src/services/api';
 
-function AIGuidanceScreen() {
+function AIGuidanceScreen({infantId}: {infantId?: string}) {
+  const [guidance, setGuidance] = React.useState<string[]>([]);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState('');
+
+  React.useEffect(() => {
+    if (!infantId?.trim()) return;
+    setLoading(true);
+    getCareGuidance(infantId.trim())
+      .then(result => setGuidance(result.guidance))
+      .catch(() => setError('Backend guidance is unavailable. Showing general prototype guidance.'))
+      .finally(() => setLoading(false));
+  }, [infantId]);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -30,6 +45,11 @@ function AIGuidanceScreen() {
         </View>
 
         <Text style={styles.sectionTitle}>Health Guidance</Text>
+
+        {!infantId && <Text style={styles.infoText}>Enter an infant ID and submit a reading to load personalised prototype guidance.</Text>}
+        {loading && <ActivityIndicator accessibilityLabel="Loading care guidance" />}
+        {!!error && <Text style={styles.warningText}>{error}</Text>}
+        {guidance.map((item, index) => <Text key={`${item}-${index}`} style={styles.cardText}>{item}</Text>)}
 
         <TouchableOpacity style={styles.guidanceCard}>
           <Text style={styles.icon}>🌡️</Text>
@@ -127,6 +147,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#475569',
     marginTop: 5,
+    lineHeight: 20,
+  },
+
+  infoText: {
+    fontSize: 14,
+    color: '#475569',
     lineHeight: 20,
   },
 

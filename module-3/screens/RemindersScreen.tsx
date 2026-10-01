@@ -1,13 +1,41 @@
 import React from 'react';
 import {
+  ActivityIndicator,
+  Button,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from 'react-native';
+import {createReminder} from '../src/services/api';
 
-function RemindersScreen() {
+function RemindersScreen({infantId}: {infantId?: string}) {
+  const [title, setTitle] = React.useState('');
+  const [dueDate, setDueDate] = React.useState('');
+  const [status, setStatus] = React.useState('');
+  const [loading, setLoading] = React.useState(false);
+
+  const saveReminder = async () => {
+    if (!infantId?.trim() || !title.trim() || !dueDate.trim()) {
+      setStatus('Enter an infant ID, reminder title, and date (YYYY-MM-DD).');
+      return;
+    }
+    setLoading(true);
+    setStatus('');
+    try {
+      await createReminder({infant_id: infantId.trim(), title: title.trim(), due_date: dueDate.trim(), category: 'care'});
+      setStatus('Reminder saved to the research prototype backend.');
+      setTitle('');
+      setDueDate('');
+    } catch {
+      setStatus('Unable to save the reminder. Check that the FastAPI backend is running.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -69,6 +97,14 @@ function RemindersScreen() {
             care routines.
           </Text>
         </View>
+
+        <View style={styles.createCard}>
+          <Text style={styles.infoTitle}>Add a care reminder</Text>
+          <TextInput accessibilityLabel="Reminder title" style={styles.input} value={title} onChangeText={setTitle} placeholder="Reminder title" />
+          <TextInput accessibilityLabel="Reminder due date" style={styles.input} value={dueDate} onChangeText={setDueDate} placeholder="YYYY-MM-DD" />
+          {loading ? <ActivityIndicator accessibilityLabel="Saving reminder" /> : <Button title="Save reminder" onPress={saveReminder} />}
+          {!!status && <Text style={styles.infoText}>{status}</Text>}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -128,6 +164,19 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#164E63',
     marginTop: 5,
+  },
+  createCard: {
+    margin: 20,
+    padding: 18,
+    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+    gap: 10,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#CBD5E1',
+    borderRadius: 6,
+    padding: 10,
   },
 
   description: {

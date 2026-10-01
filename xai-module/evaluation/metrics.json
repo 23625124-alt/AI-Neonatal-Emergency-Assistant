@@ -44,6 +44,44 @@
       "support": 600.0
     }
   },
+  "cross_validation": {
+    "accuracy": {
+      "mean": 0.998,
+      "std": 0.0019436506316150954
+    },
+    "balanced_accuracy": {
+      "mean": 0.9935576923076923,
+      "std": 0.006857326665259797
+    },
+    "roc_auc": {
+      "mean": 0.9998221153846154,
+      "std": 0.00028416267920756397
+    },
+    "precision": {
+      "mean": 0.9974999999999999,
+      "std": 0.004999999999999982
+    },
+    "recall": {
+      "mean": 0.9875,
+      "std": 0.013693063937629145
+    },
+    "f1": {
+      "mean": 0.9924204823138245,
+      "std": 0.007398463757481412
+    }
+  },
+  "dataset_review": {
+    "exact_duplicate_feature_rows": 0,
+    "feature_columns_matching_target_name": [],
+    "infant_grouping_available": false,
+    "shallow_tree_depth": 3,
+    "shallow_tree_holdout_accuracy": 1.0,
+    "findings": [
+      "No exact duplicate feature rows were found in the prepared dataset.",
+      "No feature name directly references the risk_level target.",
+      "A depth-3 diagnostic tree reached perfect holdout accuracy; synthetic or deterministic label generation requires review."
+    ]
+  },
   "validation_flags": [
     "Perfect or near-perfect holdout metrics require target-leakage and synthetic-label review before clinical interpretation."
   ],

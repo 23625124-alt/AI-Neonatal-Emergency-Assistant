@@ -37,6 +37,19 @@ export type NeonatalReadingPayload = {
   vaccination_status: string;
   symptoms: string[];
 };
+export type BabyProfilePayload = {
+  infant_id: string; password: string; gender: string; gestational_age_weeks: number;
+  birth_weight_kg: number; birth_length_cm: number; birth_head_circumference_cm: number;
+  feeding_type: string; apgar_score: number; vaccination_status: string;
+};
+export type QuickReadingPayload = {
+  infant_id: string; simulated: boolean; recorded_at: string; age_days: number; weight_kg: number;
+  length_cm: number; head_circumference_cm: number; temperature_c: number; heart_rate_bpm: number;
+  respiratory_rate_bpm: number; oxygen_saturation: number; feeding_frequency_per_day: number;
+  urine_output_count: number; stool_count: number; jaundice_level_mg_dl: number;
+  immunizations_done: number; reflexes_normal: number; sleeping_hours: number; symptoms: string[];
+};
+export type BabyAuthResponse = { infant_id: string; status?: string; authenticated?: boolean };
 
 export type Contribution = { feature: string; shap_value: number };
 export type Explanation = { top_contributions: Contribution[]; warning: string };
@@ -57,3 +70,11 @@ export type HistoryResponse = { infant_id: string; count: number; readings: Moni
 export type GlobalImportance = { feature: string; mean_absolute_shap: number };
 export type GlobalExplanation = { rows_explained: number; global_feature_importance: GlobalImportance[]; warning: string };
 export type WhatIfResponse = ModelResult & { what_if_changes: Record<string, number>; top_contributions: Contribution[] };
+export type CareGuidance = {
+  infant_id: string;
+  latest_reading: MonitoringRecord | null;
+  guidance: string[];
+  reminder_window_days: number;
+};
+export type ReminderPayload = { infant_id: string; title: string; due_date: string; category: string };
+export type Reminder = ReminderPayload & { id: string; created_at: string };

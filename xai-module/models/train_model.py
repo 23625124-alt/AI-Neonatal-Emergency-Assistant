@@ -18,11 +18,9 @@ SPLIT_PATH = PROJECT_ROOT / "models" / "test_data.csv"
 META_PATH = PROJECT_ROOT / "models" / "model_metadata.json"
 
 
-def train_model() -> dict:
-    data, target, _ = prepare_dataset()
+def build_pipeline(data: pd.DataFrame) -> Pipeline:
     categorical = data.select_dtypes(include=["object", "category"]).columns.tolist()
     numerical = [column for column in data.columns if column not in categorical]
-
     transformer = ColumnTransformer(
         transformers=[
             ("numeric", "passthrough", numerical),
@@ -40,6 +38,14 @@ def train_model() -> dict:
             )),
         ]
     )
+    return pipeline
+
+
+def train_model() -> dict:
+    data, target, _ = prepare_dataset()
+    categorical = data.select_dtypes(include=["object", "category"]).columns.tolist()
+    numerical = [column for column in data.columns if column not in categorical]
+    pipeline = build_pipeline(data)
 
     train_x, test_x, train_y, test_y = train_test_split(
         data, target, test_size=0.2, random_state=42, stratify=target

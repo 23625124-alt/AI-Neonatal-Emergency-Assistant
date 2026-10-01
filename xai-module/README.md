@@ -1,6 +1,6 @@
 # AI-Powered Neonatal Emergency Assistant: XAI Module
 
-This repository contains an Explainable AI research prototype and a local FastAPI service for neonatal monitoring, risk support, care guidance, and reminders. It does not provide clinical diagnosis, a React/React Native client, MongoDB Atlas persistence, or Firebase notifications yet.
+This repository contains an Explainable AI research prototype and a FastAPI service for neonatal monitoring, risk support, care guidance, reminders, and optional MongoDB persistence. It does not provide clinical diagnosis or Firebase notifications.
 
 ## Setup
 
@@ -33,4 +33,21 @@ The scripts save prepared data, a quality report, a model, evaluation metrics, a
 
 This is a research and learning prototype. It does not diagnose disease, replace clinicians, or establish clinical accuracy. The target-generation method, data provenance, measurement validity, and prediction time point must be reviewed by the project team. The current holdout evaluation produces perfect or near-perfect metrics and is flagged for target-leakage or synthetic-label review. SHAP explanations describe this model's learned associations; they are not causal or clinical explanations. Suspicious values are reported for review rather than silently changed.
 
-The API reading schema currently collects fewer fields than the training dataset. Missing model fields use development-time defaults for prediction and must be added to the API contract or handled with an approved missing-data strategy before real-world evaluation.
+The full reading endpoint collects the model fields. The lightweight endpoint loads stable profile values saved at baby registration and requires changing monitoring values explicitly; it does not silently invent missing clinical data.
+
+## MongoDB and lightweight monitoring
+
+Set `MONGODB_URI` and optionally `MONGODB_DATABASE` before starting the API. When MongoDB is unavailable, the API automatically uses the existing JSON development store and reports the active backend through `GET /health`.
+
+1. Create a baby login with `POST /babies/register`. Passwords are stored as one-way scrypt hashes; the API never returns them.
+2. Authenticate with `POST /babies/login`.
+3. Send only changing values such as temperature, heart rate, oxygen saturation, feeding, urine, stool, sleep, and symptoms to `POST /monitoring/quick-readings`. Stable birth/profile values are loaded from the saved baby profile.
+4. The simulator continues sending readings to `POST /monitoring/readings` and can use the same MongoDB-backed store.
+
+Example PowerShell configuration:
+
+```powershell
+$env:MONGODB_URI = "mongodb+srv://<user>:<password>@<cluster>/<database>"
+$env:MONGODB_DATABASE = "neonatal_xai"
+py -3.12 -m uvicorn api.main:app --reload
+```
