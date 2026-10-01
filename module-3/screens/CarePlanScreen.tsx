@@ -5,66 +5,96 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity,
 } from 'react-native';
 
-function CarePlanScreen() {
+function CarePlanScreen({navigation}: any) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
+
         <View style={styles.header}>
           <Text style={styles.title}>Daily Care Plan 🍼</Text>
+
           <Text style={styles.subtitle}>
             Personalized care recommendations for your baby
           </Text>
         </View>
 
-        <View style={styles.card}>
+        {/* Feeding */}
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate('FeedingCarePlan')}
+        >
           <Text style={styles.icon}>🍼</Text>
+
           <View style={styles.content}>
             <Text style={styles.cardTitle}>Feeding</Text>
+
             <Text style={styles.cardText}>
               Follow the recommended feeding schedule for your baby.
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.card}>
+        {/* Sleep */}
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate('SleepCarePlan')}
+        >
           <Text style={styles.icon}>😴</Text>
+
           <View style={styles.content}>
             <Text style={styles.cardTitle}>Sleep</Text>
+
             <Text style={styles.cardText}>
               Maintain a safe and comfortable sleeping routine.
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.card}>
+        {/* Weight Monitoring */}
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate('WeightCarePlan')}
+        >
           <Text style={styles.icon}>⚖️</Text>
+
           <View style={styles.content}>
             <Text style={styles.cardTitle}>Weight Monitoring</Text>
+
             <Text style={styles.cardText}>
               Keep track of your baby's weight regularly.
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
 
-        <View style={styles.card}>
+        {/* Vaccination */}
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate('VaccinationCarePlan')}
+        >
           <Text style={styles.icon}>💉</Text>
+
           <View style={styles.content}>
             <Text style={styles.cardTitle}>Vaccination</Text>
+
             <Text style={styles.cardText}>
               Stay updated with scheduled vaccinations.
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
 
+        {/* Care Tip */}
         <View style={styles.infoCard}>
           <Text style={styles.infoTitle}>💡 Care Tip</Text>
+
           <Text style={styles.infoText}>
             Always follow your healthcare professional's advice for neonatal
             care.
           </Text>
         </View>
+
       </ScrollView>
     </SafeAreaView>
   );

@@ -1,0 +1,71 @@
+{
+  "row_index": 0,
+  "prediction": "healthy",
+  "probability_at_risk": 0.02,
+  "what_if_changes": {
+    "temperature_c": 37.0
+  },
+  "top_contributions": [
+    {
+      "feature": "numeric__jaundice_level_mg_dl",
+      "shap_value": -0.20855005723996514
+    },
+    {
+      "feature": "numeric__heart_rate_bpm",
+      "shap_value": -0.089625546830455
+    },
+    {
+      "feature": "numeric__oxygen_saturation",
+      "shap_value": -0.0750440681415886
+    },
+    {
+      "feature": "numeric__age_days",
+      "shap_value": -0.07230175002949482
+    },
+    {
+      "feature": "numeric__respiratory_rate_bpm",
+      "shap_value": -0.00848796170850601
+    },
+    {
+      "feature": "numeric__temperature_c",
+      "shap_value": -0.007319507912598529
+    },
+    {
+      "feature": "numeric__birth_length_cm",
+      "shap_value": -0.004347689194000499
+    },
+    {
+      "feature": "numeric__length_cm",
+      "shap_value": -0.0042116762808140995
+    },
+    {
+      "feature": "numeric__weight_kg",
+      "shap_value": -0.0030993524254454767
+    },
+    {
+      "feature": "numeric__birth_weight_kg",
+      "shap_value": -0.002278117071521479
+    },
+    {
+      "feature": "categorical__feeding_type_Formula",
+      "shap_value": -0.0021728213450802917
+    },
+    {
+      "feature": "numeric__feeding_frequency_per_day",
+      "shap_value": -0.0021449797389215194
+    },
+    {
+      "feature": "numeric__birth_head_circumference_cm",
+      "shap_value": -0.0021444735586078068
+    },
+    {
+      "feature": "numeric__stool_count",
+      "shap_value": 0.0013804859759858784
+    },
+    {
+      "feature": "numeric__gestational_age_weeks",
+      "shap_value": 0.0011313377471059841
+    }
+  ],
+  "warning": "SHAP values describe model associations, not causes or clinical advice."
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -6,70 +6,8 @@ import {
   Text,
   View,
 } from 'react-native';
-import API from '../services/api';
-
-type Reading = {
-  temperature_c: number;
-  heart_rate_bpm: number;
-  respiratory_rate_bpm: number;
-  oxygen_saturation: number;
-  weight_kg: number;
-  feeding_frequency_per_day: number;
-  sleeping_hours: number;
-  vaccination_status: string;
-  risk_level: string;
-  model?: {
-    prediction?: string;
-    probability_at_risk?: number;
-  };
-};
 
 function BabyHealthScreen() {
-  const [reading, setReading] = useState<Reading | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    const fetchHealthData = async () => {
-      try {
-        const response = await API.get('/monitoring/test-baby');
-
-        if (response.data?.readings?.length > 0) {
-          setReading(response.data.readings[0]);
-        }
-      } catch (err) {
-        console.log('Health API Error:', err);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchHealthData();
-  }, []);
-
-  if (loading) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.center}>
-          <Text style={styles.loadingText}>Loading baby health...</Text>
-        </View>
-      </SafeAreaView>
-    );
-  }
-
-  if (error || !reading) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.center}>
-          <Text style={styles.errorText}>
-            Unable to load baby health data.
-          </Text>
-        </View>
-      </SafeAreaView>
-    );
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -82,19 +20,9 @@ function BabyHealthScreen() {
 
         <View style={styles.statusCard}>
           <Text style={styles.statusIcon}>✅</Text>
-
           <View style={styles.statusContent}>
             <Text style={styles.statusTitle}>Health Status</Text>
-
-            <Text style={styles.statusText}>
-              {reading.risk_level}
-            </Text>
-
-            {reading.model?.prediction && (
-              <Text style={styles.predictionText}>
-                AI Prediction: {reading.model.prediction}
-              </Text>
-            )}
+            <Text style={styles.statusText}>Currently monitoring</Text>
           </View>
         </View>
 
@@ -104,33 +32,25 @@ function BabyHealthScreen() {
           <View style={styles.vitalCard}>
             <Text style={styles.icon}>🌡️</Text>
             <Text style={styles.label}>Temperature</Text>
-            <Text style={styles.value}>
-              {reading.temperature_c} °C
-            </Text>
+            <Text style={styles.value}>36.8 °C</Text>
           </View>
 
           <View style={styles.vitalCard}>
             <Text style={styles.icon}>❤️</Text>
             <Text style={styles.label}>Heart Rate</Text>
-            <Text style={styles.value}>
-              {reading.heart_rate_bpm} bpm
-            </Text>
+            <Text style={styles.value}>142 bpm</Text>
           </View>
 
           <View style={styles.vitalCard}>
             <Text style={styles.icon}>🫁</Text>
             <Text style={styles.label}>Respiratory Rate</Text>
-            <Text style={styles.value}>
-              {reading.respiratory_rate_bpm} /min
-            </Text>
+            <Text style={styles.value}>42 /min</Text>
           </View>
 
           <View style={styles.vitalCard}>
             <Text style={styles.icon}>💧</Text>
             <Text style={styles.label}>Oxygen Saturation</Text>
-            <Text style={styles.value}>
-              {reading.oxygen_saturation}%
-            </Text>
+            <Text style={styles.value}>98%</Text>
           </View>
         </View>
 
@@ -138,54 +58,42 @@ function BabyHealthScreen() {
 
         <View style={styles.infoCard}>
           <Text style={styles.infoIcon}>⚖️</Text>
-
           <View style={styles.infoContent}>
             <Text style={styles.infoTitle}>Weight</Text>
-            <Text style={styles.infoValue}>
-              {reading.weight_kg} kg
-            </Text>
+            <Text style={styles.infoValue}>2.8 kg</Text>
           </View>
         </View>
 
         <View style={styles.infoCard}>
           <Text style={styles.infoIcon}>🍼</Text>
-
           <View style={styles.infoContent}>
             <Text style={styles.infoTitle}>Feeding Frequency</Text>
-            <Text style={styles.infoValue}>
-              {reading.feeding_frequency_per_day} times today
-            </Text>
+            <Text style={styles.infoValue}>8 times today</Text>
           </View>
         </View>
 
         <View style={styles.infoCard}>
           <Text style={styles.infoIcon}>😴</Text>
-
           <View style={styles.infoContent}>
             <Text style={styles.infoTitle}>Sleep</Text>
-            <Text style={styles.infoValue}>
-              {reading.sleeping_hours} hours today
-            </Text>
+            <Text style={styles.infoValue}>14 hours today</Text>
           </View>
         </View>
 
         <View style={styles.infoCard}>
           <Text style={styles.infoIcon}>💉</Text>
-
           <View style={styles.infoContent}>
             <Text style={styles.infoTitle}>Vaccination Status</Text>
-            <Text style={styles.infoValue}>
-              {reading.vaccination_status}
-            </Text>
+            <Text style={styles.infoValue}>Up to date</Text>
           </View>
         </View>
 
         <View style={styles.noteCard}>
           <Text style={styles.noteTitle}>ℹ️ Monitoring Note</Text>
-
           <Text style={styles.noteText}>
-            Health information is now connected to the neonatal
-            monitoring backend and displayed from the latest reading.
+            These values are sample observations for the application interface.
+            In the complete system, health data can be connected to actual
+            monitoring inputs.
           </Text>
         </View>
       </ScrollView>
@@ -197,24 +105,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F5F8FA',
-  },
-
-  center: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-
-  loadingText: {
-    fontSize: 17,
-    color: '#6B7280',
-  },
-
-  errorText: {
-    fontSize: 17,
-    color: '#DC2626',
-    textAlign: 'center',
   },
 
   header: {
@@ -263,13 +153,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#4B5563',
     marginTop: 4,
-  },
-
-  predictionText: {
-    fontSize: 14,
-    color: '#166534',
-    marginTop: 4,
-    fontWeight: '600',
   },
 
   sectionTitle: {
