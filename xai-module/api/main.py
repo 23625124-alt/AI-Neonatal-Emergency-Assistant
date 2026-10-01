@@ -2,12 +2,7 @@
 from __future__ import annotations
 
 from datetime import date, datetime, timezone
-from fastapi import HTTPException
-import json
-import hashlib
-import hmac
 import logging
-import os
 from pathlib import Path
 from typing import Any
 from uuid import uuid4
@@ -75,46 +70,6 @@ class NeonatalReading(BaseModel):
     symptoms: list[str] = Field(default_factory=list, max_length=20)
 
 
-class BabyProfile(BaseModel):
-    infant_id: str = Field(min_length=1, max_length=80)
-    password: str = Field(min_length=8, max_length=128)
-    gender: str = Field(min_length=1, max_length=40)
-    gestational_age_weeks: float = Field(gt=0, lt=50)
-    birth_weight_kg: float = Field(gt=0, lt=15)
-    birth_length_cm: float = Field(gt=0, lt=100)
-    birth_head_circumference_cm: float = Field(gt=0, lt=100)
-    feeding_type: str = Field(min_length=1, max_length=40)
-    apgar_score: float = Field(ge=0, le=10)
-    vaccination_status: str = Field(min_length=1, max_length=80)
-
-
-class BabyLogin(BaseModel):
-    infant_id: str = Field(min_length=1, max_length=80)
-    password: str = Field(min_length=1, max_length=128)
-
-
-class QuickReading(BaseModel):
-    infant_id: str = Field(min_length=1, max_length=80)
-    simulated: bool = False
-    recorded_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    age_days: int = Field(ge=0, le=3650)
-    weight_kg: float = Field(gt=0, lt=15)
-    length_cm: float = Field(gt=0, lt=150)
-    head_circumference_cm: float = Field(gt=0, lt=100)
-    temperature_c: float = Field(gt=25, lt=45)
-    heart_rate_bpm: int = Field(gt=0, lt=300)
-    respiratory_rate_bpm: int = Field(gt=0, lt=150)
-    oxygen_saturation: float = Field(gt=0, le=100)
-    feeding_frequency_per_day: int = Field(ge=0, le=30)
-    urine_output_count: int = Field(ge=0, le=100)
-    stool_count: int = Field(ge=0, le=100)
-    jaundice_level_mg_dl: float = Field(ge=0, lt=100)
-    immunizations_done: int = Field(ge=0, le=1)
-    reflexes_normal: int = Field(ge=0, le=1)
-    sleeping_hours: float = Field(ge=0, le=24)
-    symptoms: list[str] = Field(default_factory=list, max_length=20)
-
-
 class ReminderRequest(BaseModel):
     infant_id: str = Field(min_length=1, max_length=80)
     title: str = Field(min_length=1, max_length=120)
@@ -127,39 +82,12 @@ class WhatIfRequest(BaseModel):
     changes: dict[str, float] = Field(min_length=1, max_length=10)
 
 
-def _read_json(path: Path) -> list[dict[str, Any]]:
-    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else []
+def _read_records(path: Path, collection: str) -> list[dict[str, Any]]:
+    return STORE.read(path, collection)
 
 
-def _write_json(path: Path, records: list[dict[str, Any]]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(records, indent=2), encoding="utf-8")
-
-
-def _password_hash(password: str, salt: bytes | None = None) -> str:
-    salt = salt or os.urandom(16)
-    digest = hashlib.scrypt(password.encode(), salt=salt, n=2**14, r=8, p=1)
-    return f"{salt.hex()}:{digest.hex()}"
-
-
-def _password_matches(password: str, encoded: str) -> bool:
-    try:
-        salt_hex, digest_hex = encoded.split(":", 1)
-        expected = bytes.fromhex(digest_hex)
-        actual = hashlib.scrypt(password.encode(), salt=bytes.fromhex(salt_hex), n=2**14, r=8, p=1)
-        return hmac.compare_digest(actual, expected)
-    except (ValueError, TypeError):
-        return False
-
-
-def _profile_path(infant_id: str) -> Path:
-    return PROJECT_ROOT / "data" / "processed" / f"baby_profile_{infant_id}.json"
-
-
-def _quick_to_reading(quick: QuickReading, profile: dict[str, Any]) -> NeonatalReading:
-    values = {**profile, **quick.model_dump()}
-    values.pop("password_hash", None)
-    return NeonatalReading(**values)
+def _write_records(path: Path, collection: str, records: list[dict[str, Any]]) -> None:
+    STORE.replace(path, collection, records)
 
 
 def _risk_level(reading: NeonatalReading) -> tuple[str, list[str]]:
@@ -210,26 +138,11 @@ def _model_explanation(reading: NeonatalReading) -> dict[str, Any] | None:
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "model_status": "ready" if MODEL_PATH.exists() else "not trained", "storage": STORE.backend}
-
-
-@app.post("/babies/register", status_code=201)
-def register_baby(profile: BabyProfile) -> dict[str, str]:
-    path = _profile_path(profile.infant_id)
-    if STORE.find_one(path, "baby_profiles", "infant_id", profile.infant_id):
-        raise HTTPException(status_code=409, detail="A baby profile with this login ID already exists.")
-    record = profile.model_dump()
-    record["password_hash"] = _password_hash(record.pop("password"))
-    STORE.append(path, "baby_profiles", record)
-    return {"infant_id": profile.infant_id, "status": "created"}
-
-
-@app.post("/babies/login")
-def login_baby(credentials: BabyLogin) -> dict[str, str | bool]:
-    profile = STORE.find_one(_profile_path(credentials.infant_id), "baby_profiles", "infant_id", credentials.infant_id)
-    if not profile or not _password_matches(credentials.password, profile.get("password_hash", "")):
-        return {"authenticated": False, "infant_id": credentials.infant_id}
-    return {"authenticated": True, "infant_id": credentials.infant_id}
+    return {
+        "status": "ok",
+        "model_status": "ready" if MODEL_PATH.exists() else "not trained",
+        "storage_backend": STORE.backend,
+    }
 
 
 @app.get("/xai/global")
@@ -274,7 +187,7 @@ def record_reading(reading: NeonatalReading) -> dict[str, Any]:
         "prediction_error": prediction_error,
         "explanation_error": explanation_error,
     })
-    STORE.append(STORE_PATH, "monitoring_records", record)
+    STORE.append(STORE_PATH, "monitoring_readings", record)
     return {
         "record": record,
         "action": "seek urgent clinical assessment" if risk == "urgent review" else "continue scheduled monitoring",
@@ -282,17 +195,9 @@ def record_reading(reading: NeonatalReading) -> dict[str, Any]:
     }
 
 
-@app.post("/monitoring/quick-readings", status_code=201)
-def record_quick_reading(reading: QuickReading) -> dict[str, Any]:
-    profile = STORE.find_one(_profile_path(reading.infant_id), "baby_profiles", "infant_id", reading.infant_id)
-    if not profile:
-        raise HTTPException(status_code=404, detail="Create the baby profile before submitting lightweight readings.")
-    return record_reading(_quick_to_reading(reading, profile))
-
-
 @app.get("/monitoring/{infant_id}")
 def monitoring_history(infant_id: str) -> dict[str, Any]:
-    readings = [record for record in STORE.read(STORE_PATH, "monitoring_records") if record["infant_id"] == infant_id]
+    readings = [record for record in _read_records(STORE_PATH, "monitoring_readings") if record["infant_id"] == infant_id]
     readings.sort(key=lambda record: record["recorded_at"], reverse=True)
     return {"infant_id": infant_id, "count": len(readings), "readings": readings}
 
@@ -307,7 +212,7 @@ def create_reminder(request: ReminderRequest) -> dict[str, Any]:
 
 @app.get("/care/{infant_id}")
 def care_guidance(infant_id: str) -> dict[str, Any]:
-    readings = [record for record in STORE.read(STORE_PATH, "monitoring_records") if record["infant_id"] == infant_id]
+    readings = [record for record in _read_records(STORE_PATH, "monitoring_readings") if record["infant_id"] == infant_id]
     latest = max(readings, key=lambda record: record["recorded_at"]) if readings else None
     guidance = [
         "Keep feeding, sleep, temperature, and vaccination records up to date.",

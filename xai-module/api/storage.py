@@ -2,9 +2,13 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 from pathlib import Path
 from typing import Any
+
+
+logger = logging.getLogger(__name__)
 
 
 class DataStore:
@@ -12,15 +16,20 @@ class DataStore:
         self.mongo_uri = os.getenv("MONGODB_URI", "").strip()
         self.database_name = os.getenv("MONGODB_DATABASE", "neonatal_xai")
         self.project_root = project_root
+        self._client: Any = None
         self._database: Any = None
         if self.mongo_uri:
             try:
                 from pymongo import MongoClient
 
-                client = MongoClient(self.mongo_uri, serverSelectionTimeoutMS=3000)
-                client.admin.command("ping")
-                self._database = client[self.database_name]
-            except Exception:
+                self._client = MongoClient(self.mongo_uri, serverSelectionTimeoutMS=3000)
+                self._client.admin.command("ping")
+                self._database = self._client[self.database_name]
+            except Exception as error:
+                logger.warning("MongoDB unavailable; using local JSON storage: %s", error)
+                if self._client is not None:
+                    self._client.close()
+                self._client = None
                 self._database = None
 
     @property
