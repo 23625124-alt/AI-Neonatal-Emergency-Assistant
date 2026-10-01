@@ -6,7 +6,7 @@ This repository contains an Explainable AI research prototype and a FastAPI serv
 
 ```powershell
 cd path\to\AI-Neonatal-XAI
-python -m venv .venv
+py -3.12 -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
 ```
