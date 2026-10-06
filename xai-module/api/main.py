@@ -14,7 +14,7 @@ from pydantic import BaseModel, Field
 
 from explainability.explain import explain_prediction, explain_trend, explain_what_if, predict_input
 from models.train_model import MODEL_PATH
-from api.storage import DataStore
+from api.storage import DataStore, _json_safe
 
 logger = logging.getLogger(__name__)
 
@@ -189,7 +189,7 @@ def record_reading(reading: NeonatalReading) -> dict[str, Any]:
     })
     STORE.append(STORE_PATH, "monitoring_readings", record)
     return {
-        "record": record,
+        "record": _json_safe(record),
         "action": "seek urgent clinical assessment" if risk == "urgent review" else "continue scheduled monitoring",
         "warning": "Prototype demonstration alert. Research decision support; seek qualified clinical assessment for any concern.",
     }

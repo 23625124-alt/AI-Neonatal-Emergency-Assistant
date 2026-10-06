@@ -7,8 +7,25 @@ import os
 from pathlib import Path
 from typing import Any
 
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
 
 logger = logging.getLogger(__name__)
+
+
+def _json_safe(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {key: _json_safe(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_json_safe(item) for item in value]
+    if isinstance(value, tuple):
+        return tuple(_json_safe(item) for item in value)
+    if type(value).__name__ == "ObjectId" and value.__class__.__module__ == "bson.objectid":
+        return str(value)
+    return value
 
 
 class DataStore:
@@ -38,7 +55,7 @@ class DataStore:
 
     def read(self, path: Path, collection: str) -> list[dict[str, Any]]:
         if self._database is not None:
-            return list(self._database[collection].find({}, {"_id": 0}))
+            return [_json_safe(record) for record in self._database[collection].find({}, {"_id": 0})]
         return json.loads(path.read_text(encoding="utf-8")) if path.exists() else []
 
     def append(self, path: Path, collection: str, record: dict[str, Any]) -> None:
@@ -61,5 +78,6 @@ class DataStore:
 
     def find_one(self, path: Path, collection: str, field: str, value: str) -> dict[str, Any] | None:
         if self._database is not None:
-            return self._database[collection].find_one({field: value}, {"_id": 0})
+            record = self._database[collection].find_one({field: value}, {"_id": 0})
+            return _json_safe(record) if record is not None else None
         return next((item for item in self.read(path, collection) if item.get(field) == value), None)
