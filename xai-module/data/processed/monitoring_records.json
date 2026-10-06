@@ -46,313 +46,101 @@
     }
   },
   {
-    "infant_id": "test-infant",
-    "simulated": false,
-    "recorded_at": "2026-10-01T08:39:51.286388Z",
-    "gender": "Female",
-    "gestational_age_weeks": 40.2,
-    "birth_weight_kg": 3.3,
-    "birth_length_cm": 50.0,
-    "birth_head_circumference_cm": 31.9,
-    "age_days": 2,
-    "length_cm": 50.2,
-    "head_circumference_cm": 32.0,
-    "temperature_c": 37.0,
-    "heart_rate_bpm": 150,
-    "respiratory_rate_bpm": 40,
-    "oxygen_saturation": 98.0,
-    "weight_kg": 3.2,
-    "feeding_type": "Formula",
-    "feeding_frequency_per_day": 8,
-    "urine_output_count": 6,
-    "stool_count": 2,
-    "jaundice_level_mg_dl": 4.2,
-    "apgar_score": 8.0,
-    "immunizations_done": 1,
-    "reflexes_normal": 1,
-    "sleeping_hours": 14.0,
-    "vaccination_status": "recorded",
-    "symptoms": [],
-    "id": "4d1c5dda-dbcd-48a2-96ec-147144ecf8cf",
-    "risk_level": "routine monitoring",
-    "risk_reasons": [],
-    "risk_basis": "demonstration thresholds and reported symptoms",
-    "model": {
-      "prediction": "healthy",
-      "probability_at_risk": 0.13,
-      "explanation": {
-        "top_contributions": [
-          {
-            "feature": "numeric__jaundice_level_mg_dl",
-            "shap_value": -0.2846098562865992
-          },
-          {
-            "feature": "numeric__age_days",
-            "shap_value": 0.08790921537148196
-          },
-          {
-            "feature": "numeric__heart_rate_bpm",
-            "shap_value": -0.07026421538699701
-          },
-          {
-            "feature": "numeric__oxygen_saturation",
-            "shap_value": -0.05476870863269274
-          },
-          {
-            "feature": "numeric__immunizations_done",
-            "shap_value": -0.0455135306828818
-          },
-          {
-            "feature": "numeric__head_circumference_cm",
-            "shap_value": 0.014259079190021173
-          },
-          {
-            "feature": "numeric__length_cm",
-            "shap_value": -0.010716493677098808
-          },
-          {
-            "feature": "numeric__weight_kg",
-            "shap_value": 0.010504605714886801
-          },
-          {
-            "feature": "numeric__feeding_frequency_per_day",
-            "shap_value": -0.008510698598317152
-          },
-          {
-            "feature": "numeric__temperature_c",
-            "shap_value": -0.004020912835439188
-          },
-          {
-            "feature": "numeric__birth_head_circumference_cm",
-            "shap_value": 0.004014504178206815
-          },
-          {
-            "feature": "numeric__respiratory_rate_bpm",
-            "shap_value": -0.0038440110546313533
-          },
-          {
-            "feature": "categorical__feeding_type_Formula",
-            "shap_value": 0.003254556304679428
-          },
-          {
-            "feature": "numeric__urine_output_count",
-            "shap_value": -0.0030634146850055865
-          },
-          {
-            "feature": "numeric__birth_weight_kg",
-            "shap_value": -0.0012324501599623814
-          }
-        ],
-        "warning": "SHAP values describe model associations, not causes or clinical advice."
-      }
-    },
-    "explanation_status": "generated",
-    "prediction_status": "generated",
-    "prediction_error": null,
-    "explanation_error": null
-  },
-  {
-    "infant_id": "one",
-    "simulated": false,
-    "recorded_at": "2026-10-01T08:39:52.945647Z",
-    "gender": "Female",
-    "gestational_age_weeks": 40.2,
-    "birth_weight_kg": 3.3,
-    "birth_length_cm": 50.0,
-    "birth_head_circumference_cm": 31.9,
-    "age_days": 2,
-    "length_cm": 50.2,
-    "head_circumference_cm": 32.0,
-    "temperature_c": 37.0,
-    "heart_rate_bpm": 150,
-    "respiratory_rate_bpm": 40,
-    "oxygen_saturation": 98.0,
-    "weight_kg": 3.2,
-    "feeding_type": "Formula",
-    "feeding_frequency_per_day": 8,
-    "urine_output_count": 6,
-    "stool_count": 2,
-    "jaundice_level_mg_dl": 4.2,
-    "apgar_score": 8.0,
-    "immunizations_done": 1,
-    "reflexes_normal": 1,
-    "sleeping_hours": 14.0,
-    "vaccination_status": "recorded",
-    "symptoms": [],
-    "id": "412fd0c5-12ff-435f-a0f4-75e60710123d",
-    "risk_level": "routine monitoring",
-    "risk_reasons": [],
-    "risk_basis": "demonstration thresholds and reported symptoms",
-    "model": {
-      "prediction": "healthy",
-      "probability_at_risk": 0.13,
-      "explanation": {
-        "top_contributions": [
-          {
-            "feature": "numeric__jaundice_level_mg_dl",
-            "shap_value": -0.2846098562865992
-          },
-          {
-            "feature": "numeric__age_days",
-            "shap_value": 0.08790921537148196
-          },
-          {
-            "feature": "numeric__heart_rate_bpm",
-            "shap_value": -0.07026421538699701
-          },
-          {
-            "feature": "numeric__oxygen_saturation",
-            "shap_value": -0.05476870863269274
-          },
-          {
-            "feature": "numeric__immunizations_done",
-            "shap_value": -0.0455135306828818
-          },
-          {
-            "feature": "numeric__head_circumference_cm",
-            "shap_value": 0.014259079190021173
-          },
-          {
-            "feature": "numeric__length_cm",
-            "shap_value": -0.010716493677098808
-          },
-          {
-            "feature": "numeric__weight_kg",
-            "shap_value": 0.010504605714886801
-          },
-          {
-            "feature": "numeric__feeding_frequency_per_day",
-            "shap_value": -0.008510698598317152
-          },
-          {
-            "feature": "numeric__temperature_c",
-            "shap_value": -0.004020912835439188
-          },
-          {
-            "feature": "numeric__birth_head_circumference_cm",
-            "shap_value": 0.004014504178206815
-          },
-          {
-            "feature": "numeric__respiratory_rate_bpm",
-            "shap_value": -0.0038440110546313533
-          },
-          {
-            "feature": "categorical__feeding_type_Formula",
-            "shap_value": 0.003254556304679428
-          },
-          {
-            "feature": "numeric__urine_output_count",
-            "shap_value": -0.0030634146850055865
-          },
-          {
-            "feature": "numeric__birth_weight_kg",
-            "shap_value": -0.0012324501599623814
-          }
-        ],
-        "warning": "SHAP values describe model associations, not causes or clinical advice."
-      }
-    },
-    "explanation_status": "generated",
-    "prediction_status": "generated",
-    "prediction_error": null,
-    "explanation_error": null
-  },
-  {
-    "infant_id": "two",
+    "infant_id": "demo-baby-001",
     "simulated": true,
-    "recorded_at": "2026-10-01T08:39:54.746817Z",
-    "gender": "Female",
-    "gestational_age_weeks": 40.2,
-    "birth_weight_kg": 3.3,
-    "birth_length_cm": 50.0,
-    "birth_head_circumference_cm": 31.9,
-    "age_days": 2,
-    "length_cm": 50.2,
-    "head_circumference_cm": 32.0,
-    "temperature_c": 37.0,
-    "heart_rate_bpm": 150,
+    "recorded_at": "2026-10-06T14:04:49.139924Z",
+    "gender": "Not specified",
+    "gestational_age_weeks": 38.0,
+    "birth_weight_kg": 2.8,
+    "birth_length_cm": 48.0,
+    "birth_head_circumference_cm": 34.0,
+    "age_days": 10,
+    "length_cm": 50.0,
+    "head_circumference_cm": 35.0,
+    "temperature_c": 36.8,
+    "heart_rate_bpm": 140,
     "respiratory_rate_bpm": 40,
     "oxygen_saturation": 98.0,
-    "weight_kg": 3.2,
-    "feeding_type": "Formula",
+    "weight_kg": 3.0,
+    "feeding_type": "Breastfeeding",
     "feeding_frequency_per_day": 8,
     "urine_output_count": 6,
-    "stool_count": 2,
-    "jaundice_level_mg_dl": 4.2,
-    "apgar_score": 8.0,
+    "stool_count": 3,
+    "jaundice_level_mg_dl": 0.0,
+    "apgar_score": 9.0,
     "immunizations_done": 1,
     "reflexes_normal": 1,
     "sleeping_hours": 14.0,
-    "vaccination_status": "recorded",
+    "vaccination_status": "Up to date",
     "symptoms": [],
-    "id": "c4aad6ae-4776-436b-a4b4-2b6d648d86b1",
+    "id": "a1a0ce34-eaba-411c-b970-830fadf0df91",
     "risk_level": "routine monitoring",
     "risk_reasons": [],
     "risk_basis": "demonstration thresholds and reported symptoms",
     "model": {
       "prediction": "healthy",
-      "probability_at_risk": 0.13,
+      "probability_at_risk": 0.03666666666666667,
       "explanation": {
         "top_contributions": [
           {
             "feature": "numeric__jaundice_level_mg_dl",
-            "shap_value": -0.2846098562865992
-          },
-          {
-            "feature": "numeric__age_days",
-            "shap_value": 0.08790921537148196
+            "shap_value": -0.18482674568400476
           },
           {
             "feature": "numeric__heart_rate_bpm",
-            "shap_value": -0.07026421538699701
+            "shap_value": -0.08765325804114431
           },
           {
             "feature": "numeric__oxygen_saturation",
-            "shap_value": -0.05476870863269274
+            "shap_value": -0.07702941996190667
+          },
+          {
+            "feature": "numeric__age_days",
+            "shap_value": -0.05944369732849652
           },
           {
             "feature": "numeric__immunizations_done",
-            "shap_value": -0.0455135306828818
-          },
-          {
-            "feature": "numeric__head_circumference_cm",
-            "shap_value": 0.014259079190021173
-          },
-          {
-            "feature": "numeric__length_cm",
-            "shap_value": -0.010716493677098808
+            "shap_value": -0.02641912023527158
           },
           {
             "feature": "numeric__weight_kg",
-            "shap_value": 0.010504605714886801
-          },
-          {
-            "feature": "numeric__feeding_frequency_per_day",
-            "shap_value": -0.008510698598317152
+            "shap_value": 0.014643343540961385
           },
           {
             "feature": "numeric__temperature_c",
-            "shap_value": -0.004020912835439188
+            "shap_value": -0.01042102044057699
           },
           {
-            "feature": "numeric__birth_head_circumference_cm",
-            "shap_value": 0.004014504178206815
-          },
-          {
-            "feature": "numeric__respiratory_rate_bpm",
-            "shap_value": -0.0038440110546313533
-          },
-          {
-            "feature": "categorical__feeding_type_Formula",
-            "shap_value": 0.003254556304679428
+            "feature": "numeric__birth_length_cm",
+            "shap_value": -0.007995765113487156
           },
           {
             "feature": "numeric__urine_output_count",
-            "shap_value": -0.0030634146850055865
+            "shap_value": -0.005900961089266845
           },
           {
-            "feature": "numeric__birth_weight_kg",
-            "shap_value": -0.0012324501599623814
+            "feature": "numeric__length_cm",
+            "shap_value": -0.004076558857387497
+          },
+          {
+            "feature": "numeric__stool_count",
+            "shap_value": -0.004059934763141535
+          },
+          {
+            "feature": "numeric__respiratory_rate_bpm",
+            "shap_value": -0.003699460446782906
+          },
+          {
+            "feature": "categorical__feeding_type_Mixed",
+            "shap_value": -0.002230668106163642
+          },
+          {
+            "feature": "numeric__feeding_frequency_per_day",
+            "shap_value": -0.002046194575652798
+          },
+          {
+            "feature": "categorical__gender_Female",
+            "shap_value": -0.0013221915092693967
           }
         ],
         "warning": "SHAP values describe model associations, not causes or clinical advice."
@@ -364,45 +152,434 @@
     "explanation_error": null
   },
   {
-    "infant_id": "test-infant",
-    "simulated": false,
-    "recorded_at": "2026-10-01T08:39:56.142838Z",
-    "gender": "Female",
-    "gestational_age_weeks": 40.2,
-    "birth_weight_kg": 3.3,
-    "birth_length_cm": 50.0,
-    "birth_head_circumference_cm": 31.9,
-    "age_days": 2,
-    "length_cm": 50.2,
-    "head_circumference_cm": 32.0,
-    "temperature_c": 37.0,
-    "heart_rate_bpm": 150,
+    "infant_id": "demo-baby-001",
+    "simulated": true,
+    "recorded_at": "2026-10-06T14:05:31.061894Z",
+    "gender": "Not specified",
+    "gestational_age_weeks": 38.0,
+    "birth_weight_kg": 2.8,
+    "birth_length_cm": 48.0,
+    "birth_head_circumference_cm": 34.0,
+    "age_days": 10,
+    "length_cm": 50.0,
+    "head_circumference_cm": 35.0,
+    "temperature_c": 40.8,
+    "heart_rate_bpm": 140,
     "respiratory_rate_bpm": 40,
     "oxygen_saturation": 98.0,
-    "weight_kg": 3.2,
-    "feeding_type": "Formula",
+    "weight_kg": 3.0,
+    "feeding_type": "Breastfeeding",
     "feeding_frequency_per_day": 8,
     "urine_output_count": 6,
-    "stool_count": 2,
-    "jaundice_level_mg_dl": 4.2,
-    "apgar_score": 8.0,
+    "stool_count": 3,
+    "jaundice_level_mg_dl": 0.0,
+    "apgar_score": 9.0,
     "immunizations_done": 1,
     "reflexes_normal": 1,
     "sleeping_hours": 14.0,
-    "vaccination_status": "recorded",
+    "vaccination_status": "Up to date",
     "symptoms": [],
-    "id": "6483127b-90c2-4035-b40b-dc345908aaf0",
+    "id": "d1d6d128-f092-4d74-9988-ff30fb11f161",
+    "risk_level": "urgent review",
+    "risk_reasons": [
+      "temperature outside the configured newborn review range"
+    ],
+    "risk_basis": "demonstration thresholds and reported symptoms",
+    "model": {
+      "prediction": "healthy",
+      "probability_at_risk": 0.4066666666666667,
+      "explanation": {
+        "top_contributions": [
+          {
+            "feature": "numeric__temperature_c",
+            "shap_value": 0.28680398349279174
+          },
+          {
+            "feature": "numeric__jaundice_level_mg_dl",
+            "shap_value": -0.1474685577011288
+          },
+          {
+            "feature": "numeric__heart_rate_bpm",
+            "shap_value": -0.06690857911318629
+          },
+          {
+            "feature": "numeric__oxygen_saturation",
+            "shap_value": -0.059085772516868994
+          },
+          {
+            "feature": "numeric__immunizations_done",
+            "shap_value": -0.04452592274987603
+          },
+          {
+            "feature": "numeric__age_days",
+            "shap_value": -0.03231023992761305
+          },
+          {
+            "feature": "numeric__weight_kg",
+            "shap_value": 0.014449785112187379
+          },
+          {
+            "feature": "numeric__urine_output_count",
+            "shap_value": -0.010247323977381994
+          },
+          {
+            "feature": "numeric__length_cm",
+            "shap_value": -0.005946614554994179
+          },
+          {
+            "feature": "numeric__stool_count",
+            "shap_value": -0.005683830551507529
+          },
+          {
+            "feature": "numeric__respiratory_rate_bpm",
+            "shap_value": -0.004991569005909058
+          },
+          {
+            "feature": "categorical__feeding_type_Breastfeeding",
+            "shap_value": -0.004355254568992714
+          },
+          {
+            "feature": "categorical__feeding_type_Formula",
+            "shap_value": -0.0026337446514148044
+          },
+          {
+            "feature": "categorical__feeding_type_Mixed",
+            "shap_value": -0.0023219600905227595
+          },
+          {
+            "feature": "numeric__birth_weight_kg",
+            "shap_value": 0.0023156742394278207
+          }
+        ],
+        "warning": "SHAP values describe model associations, not causes or clinical advice."
+      }
+    },
+    "explanation_status": "generated",
+    "prediction_status": "generated",
+    "prediction_error": null,
+    "explanation_error": null
+  },
+  {
+    "infant_id": "demo-baby-001",
+    "simulated": true,
+    "recorded_at": "2026-10-06T14:07:03.793805Z",
+    "gender": "Not specified",
+    "gestational_age_weeks": 38.0,
+    "birth_weight_kg": 2.8,
+    "birth_length_cm": 48.0,
+    "birth_head_circumference_cm": 34.0,
+    "age_days": 10,
+    "length_cm": 50.0,
+    "head_circumference_cm": 35.0,
+    "temperature_c": 26.8,
+    "heart_rate_bpm": 140,
+    "respiratory_rate_bpm": 40,
+    "oxygen_saturation": 98.0,
+    "weight_kg": 3.0,
+    "feeding_type": "Breastfeeding",
+    "feeding_frequency_per_day": 8,
+    "urine_output_count": 6,
+    "stool_count": 3,
+    "jaundice_level_mg_dl": 0.0,
+    "apgar_score": 9.0,
+    "immunizations_done": 1,
+    "reflexes_normal": 1,
+    "sleeping_hours": 14.0,
+    "vaccination_status": "Up to date",
+    "symptoms": [],
+    "id": "069e4314-0f36-4050-9715-e31f794c253b",
+    "risk_level": "urgent review",
+    "risk_reasons": [
+      "temperature outside the configured newborn review range"
+    ],
+    "risk_basis": "demonstration thresholds and reported symptoms",
+    "model": {
+      "prediction": "healthy",
+      "probability_at_risk": 0.043333333333333335,
+      "explanation": {
+        "top_contributions": [
+          {
+            "feature": "numeric__jaundice_level_mg_dl",
+            "shap_value": -0.18232733177604482
+          },
+          {
+            "feature": "numeric__heart_rate_bpm",
+            "shap_value": -0.08806791321203962
+          },
+          {
+            "feature": "numeric__oxygen_saturation",
+            "shap_value": -0.076761166615738
+          },
+          {
+            "feature": "numeric__age_days",
+            "shap_value": -0.056587007526766396
+          },
+          {
+            "feature": "numeric__immunizations_done",
+            "shap_value": -0.027620887986565888
+          },
+          {
+            "feature": "numeric__weight_kg",
+            "shap_value": 0.013536571682662953
+          },
+          {
+            "feature": "numeric__birth_length_cm",
+            "shap_value": -0.007359784501626381
+          },
+          {
+            "feature": "numeric__temperature_c",
+            "shap_value": -0.006372925704756634
+          },
+          {
+            "feature": "numeric__urine_output_count",
+            "shap_value": -0.005200924171806385
+          },
+          {
+            "feature": "numeric__respiratory_rate_bpm",
+            "shap_value": -0.004811475910285327
+          },
+          {
+            "feature": "numeric__length_cm",
+            "shap_value": -0.004031446411228938
+          },
+          {
+            "feature": "numeric__stool_count",
+            "shap_value": -0.0037512556549269853
+          },
+          {
+            "feature": "categorical__feeding_type_Mixed",
+            "shap_value": -0.0022013308583475402
+          },
+          {
+            "feature": "numeric__feeding_frequency_per_day",
+            "shap_value": -0.0016272114028177476
+          },
+          {
+            "feature": "categorical__gender_Female",
+            "shap_value": -0.0013658336623206663
+          }
+        ],
+        "warning": "SHAP values describe model associations, not causes or clinical advice."
+      }
+    },
+    "explanation_status": "generated",
+    "prediction_status": "generated",
+    "prediction_error": null,
+    "explanation_error": null
+  },
+  {
+    "infant_id": "demo-baby-001",
+    "simulated": true,
+    "recorded_at": "2026-10-06T14:13:11.318720Z",
+    "gender": "Not specified",
+    "gestational_age_weeks": 38.0,
+    "birth_weight_kg": 2.8,
+    "birth_length_cm": 48.0,
+    "birth_head_circumference_cm": 34.0,
+    "age_days": 10,
+    "length_cm": 50.0,
+    "head_circumference_cm": 35.0,
+    "temperature_c": 36.8,
+    "heart_rate_bpm": 140,
+    "respiratory_rate_bpm": 40,
+    "oxygen_saturation": 98.0,
+    "weight_kg": 3.0,
+    "feeding_type": "Breastfeeding",
+    "feeding_frequency_per_day": 8,
+    "urine_output_count": 6,
+    "stool_count": 3,
+    "jaundice_level_mg_dl": 0.0,
+    "apgar_score": 9.0,
+    "immunizations_done": 1,
+    "reflexes_normal": 1,
+    "sleeping_hours": 14.0,
+    "vaccination_status": "Up to date",
+    "symptoms": [],
+    "id": "41ce78c7-04ab-4ca2-a36d-570bd8b07658",
     "risk_level": "routine monitoring",
     "risk_reasons": [],
     "risk_basis": "demonstration thresholds and reported symptoms",
     "model": {
       "prediction": "healthy",
-      "probability_at_risk": 0.13,
-      "explanation": null
+      "probability_at_risk": 0.03666666666666667,
+      "explanation": {
+        "top_contributions": [
+          {
+            "feature": "numeric__jaundice_level_mg_dl",
+            "shap_value": -0.18482674568400476
+          },
+          {
+            "feature": "numeric__heart_rate_bpm",
+            "shap_value": -0.08765325804114431
+          },
+          {
+            "feature": "numeric__oxygen_saturation",
+            "shap_value": -0.07702941996190667
+          },
+          {
+            "feature": "numeric__age_days",
+            "shap_value": -0.05944369732849652
+          },
+          {
+            "feature": "numeric__immunizations_done",
+            "shap_value": -0.02641912023527158
+          },
+          {
+            "feature": "numeric__weight_kg",
+            "shap_value": 0.014643343540961385
+          },
+          {
+            "feature": "numeric__temperature_c",
+            "shap_value": -0.01042102044057699
+          },
+          {
+            "feature": "numeric__birth_length_cm",
+            "shap_value": -0.007995765113487156
+          },
+          {
+            "feature": "numeric__urine_output_count",
+            "shap_value": -0.005900961089266845
+          },
+          {
+            "feature": "numeric__length_cm",
+            "shap_value": -0.004076558857387497
+          },
+          {
+            "feature": "numeric__stool_count",
+            "shap_value": -0.004059934763141535
+          },
+          {
+            "feature": "numeric__respiratory_rate_bpm",
+            "shap_value": -0.003699460446782906
+          },
+          {
+            "feature": "categorical__feeding_type_Mixed",
+            "shap_value": -0.002230668106163642
+          },
+          {
+            "feature": "numeric__feeding_frequency_per_day",
+            "shap_value": -0.002046194575652798
+          },
+          {
+            "feature": "categorical__gender_Female",
+            "shap_value": -0.0013221915092693967
+          }
+        ],
+        "warning": "SHAP values describe model associations, not causes or clinical advice."
+      }
     },
-    "explanation_status": "failed",
+    "explanation_status": "generated",
     "prediction_status": "generated",
     "prediction_error": null,
-    "explanation_error": "SHAP unavailable"
+    "explanation_error": null
+  },
+  {
+    "infant_id": "demo-baby-001",
+    "simulated": true,
+    "recorded_at": "2026-10-06T14:37:56.303391Z",
+    "gender": "Not specified",
+    "gestational_age_weeks": 38.0,
+    "birth_weight_kg": 2.8,
+    "birth_length_cm": 48.0,
+    "birth_head_circumference_cm": 34.0,
+    "age_days": 10,
+    "length_cm": 50.0,
+    "head_circumference_cm": 35.0,
+    "temperature_c": 36.8,
+    "heart_rate_bpm": 140,
+    "respiratory_rate_bpm": 40,
+    "oxygen_saturation": 40.0,
+    "weight_kg": 3.0,
+    "feeding_type": "Breastfeeding",
+    "feeding_frequency_per_day": 3,
+    "urine_output_count": 6,
+    "stool_count": 3,
+    "jaundice_level_mg_dl": 0.0,
+    "apgar_score": 9.0,
+    "immunizations_done": 1,
+    "reflexes_normal": 1,
+    "sleeping_hours": 2.0,
+    "vaccination_status": "Up to date",
+    "symptoms": [],
+    "id": "034144e0-e86a-46f0-abb0-7138126e3a67",
+    "risk_level": "urgent review",
+    "risk_reasons": [
+      "low oxygen saturation",
+      "reduced feeding frequency"
+    ],
+    "risk_basis": "demonstration thresholds and reported symptoms",
+    "model": {
+      "prediction": "at risk",
+      "probability_at_risk": 0.7866666666666666,
+      "explanation": {
+        "top_contributions": [
+          {
+            "feature": "numeric__oxygen_saturation",
+            "shap_value": 0.5192381659892762
+          },
+          {
+            "feature": "numeric__jaundice_level_mg_dl",
+            "shap_value": -0.11551711108336078
+          },
+          {
+            "feature": "numeric__heart_rate_bpm",
+            "shap_value": -0.04950348537376683
+          },
+          {
+            "feature": "numeric__immunizations_done",
+            "shap_value": -0.03987137203421159
+          },
+          {
+            "feature": "numeric__age_days",
+            "shap_value": -0.026359927074588202
+          },
+          {
+            "feature": "numeric__weight_kg",
+            "shap_value": 0.011529610187973154
+          },
+          {
+            "feature": "numeric__birth_weight_kg",
+            "shap_value": 0.009633042854928433
+          },
+          {
+            "feature": "numeric__birth_length_cm",
+            "shap_value": -0.009242857580893962
+          },
+          {
+            "feature": "numeric__temperature_c",
+            "shap_value": -0.008430328569377742
+          },
+          {
+            "feature": "numeric__urine_output_count",
+            "shap_value": -0.004685144392489886
+          },
+          {
+            "feature": "categorical__feeding_type_Breastfeeding",
+            "shap_value": -0.004365109280281652
+          },
+          {
+            "feature": "numeric__stool_count",
+            "shap_value": -0.0031762176585898613
+          },
+          {
+            "feature": "numeric__feeding_frequency_per_day",
+            "shap_value": 0.0030632073073805516
+          },
+          {
+            "feature": "categorical__gender_Male",
+            "shap_value": 0.001848050644244882
+          },
+          {
+            "feature": "numeric__birth_head_circumference_cm",
+            "shap_value": 0.001682419073325659
+          }
+        ],
+        "warning": "SHAP values describe model associations, not causes or clinical advice."
+      }
+    },
+    "explanation_status": "generated",
+    "prediction_status": "generated",
+    "prediction_error": null,
+    "explanation_error": null
   }
 ]
