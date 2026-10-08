@@ -8,7 +8,11 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-function CarePlanScreen({navigation}: any) {
+function CarePlanScreen({navigation, route}: any) {
+  const babyId = 
+  route?.params?.infantId ||
+  route?.params?.babyId || 
+  route?.params?.user?.baby_id;
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -24,7 +28,11 @@ function CarePlanScreen({navigation}: any) {
         {/* Feeding */}
         <TouchableOpacity
           style={styles.card}
-          onPress={() => navigation.navigate('FeedingCarePlan')}
+          onPress={() =>
+            navigation.navigate('FeedingCarePlan', {
+              infantId: babyId,
+     })
+          }
         >
           <Text style={styles.icon}>🍼</Text>
 

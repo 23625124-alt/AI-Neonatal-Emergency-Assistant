@@ -581,5 +581,1047 @@
     "prediction_status": "generated",
     "prediction_error": null,
     "explanation_error": null
+  },
+  {
+    "infant_id": "string",
+    "simulated": false,
+    "recorded_at": "2026-10-07T15:49:37.270000Z",
+    "gender": "string",
+    "gestational_age_weeks": 1.0,
+    "birth_weight_kg": 1.0,
+    "birth_length_cm": 1.0,
+    "birth_head_circumference_cm": 1.0,
+    "age_days": 3650,
+    "length_cm": 1.0,
+    "head_circumference_cm": 1.0,
+    "temperature_c": 26.0,
+    "heart_rate_bpm": 1,
+    "respiratory_rate_bpm": 1,
+    "oxygen_saturation": 1.0,
+    "weight_kg": 1.0,
+    "feeding_type": "string",
+    "feeding_frequency_per_day": 30,
+    "urine_output_count": 100,
+    "stool_count": 100,
+    "jaundice_level_mg_dl": 99.0,
+    "apgar_score": 10.0,
+    "immunizations_done": 1,
+    "reflexes_normal": 1,
+    "sleeping_hours": 24.0,
+    "vaccination_status": "string",
+    "symptoms": [
+      "string"
+    ],
+    "id": "d3e3a488-1785-4e15-b0f9-a7df389854ae",
+    "risk_level": "urgent review",
+    "risk_reasons": [
+      "temperature outside the configured newborn review range",
+      "low oxygen saturation",
+      "heart rate outside the configured review range",
+      "reported symptom: string"
+    ],
+    "risk_basis": "demonstration thresholds and reported symptoms",
+    "model": {
+      "prediction": "at risk",
+      "probability_at_risk": 0.81,
+      "explanation": {
+        "top_contributions": [
+          {
+            "feature": "numeric__oxygen_saturation",
+            "shap_value": 0.2835658209979058
+          },
+          {
+            "feature": "numeric__jaundice_level_mg_dl",
+            "shap_value": 0.16102695613745688
+          },
+          {
+            "feature": "numeric__immunizations_done",
+            "shap_value": -0.04556626666890887
+          },
+          {
+            "feature": "numeric__age_days",
+            "shap_value": -0.043698041800006665
+          },
+          {
+            "feature": "numeric__heart_rate_bpm",
+            "shap_value": -0.03860464425643563
+          },
+          {
+            "feature": "numeric__length_cm",
+            "shap_value": 0.014601985191834305
+          },
+          {
+            "feature": "numeric__temperature_c",
+            "shap_value": -0.011179174518853564
+          },
+          {
+            "feature": "numeric__head_circumference_cm",
+            "shap_value": 0.007304686644035443
+          },
+          {
+            "feature": "numeric__birth_length_cm",
+            "shap_value": -0.006234175902336633
+          },
+          {
+            "feature": "numeric__feeding_frequency_per_day",
+            "shap_value": -0.00594171684074045
+          },
+          {
+            "feature": "numeric__birth_head_circumference_cm",
+            "shap_value": -0.004527814498600463
+          },
+          {
+            "feature": "numeric__stool_count",
+            "shap_value": -0.0042668501089999766
+          },
+          {
+            "feature": "numeric__urine_output_count",
+            "shap_value": 0.003200547097474038
+          },
+          {
+            "feature": "numeric__respiratory_rate_bpm",
+            "shap_value": 0.0021746514606377884
+          },
+          {
+            "feature": "numeric__weight_kg",
+            "shap_value": 0.001830234977650798
+          }
+        ],
+        "warning": "SHAP values describe model associations, not causes or clinical advice."
+      }
+    },
+    "explanation_status": "generated",
+    "prediction_status": "generated",
+    "prediction_error": null,
+    "explanation_error": null
+  },
+  {
+    "infant_id": "baby-001",
+    "simulated": true,
+    "recorded_at": "2026-10-07T16:00:00Z",
+    "gender": "male",
+    "gestational_age_weeks": 38.0,
+    "birth_weight_kg": 2.8,
+    "birth_length_cm": 48.0,
+    "birth_head_circumference_cm": 34.0,
+    "age_days": 43,
+    "length_cm": 54.0,
+    "head_circumference_cm": 37.0,
+    "temperature_c": 36.8,
+    "heart_rate_bpm": 138,
+    "respiratory_rate_bpm": 42,
+    "oxygen_saturation": 98.0,
+    "weight_kg": 3.6,
+    "feeding_type": "Breastfeeding",
+    "feeding_frequency_per_day": 8,
+    "urine_output_count": 7,
+    "stool_count": 2,
+    "jaundice_level_mg_dl": 0.0,
+    "apgar_score": 9.0,
+    "immunizations_done": 1,
+    "reflexes_normal": 1,
+    "sleeping_hours": 15.0,
+    "vaccination_status": "Up to date",
+    "symptoms": [],
+    "id": "502f7c6d-8d34-4c71-b7f3-92cfa3f27044",
+    "risk_level": "routine monitoring",
+    "risk_reasons": [],
+    "risk_basis": "demonstration thresholds and reported symptoms",
+    "model": {
+      "prediction": "healthy",
+      "probability_at_risk": 0.04,
+      "explanation": {
+        "top_contributions": [
+          {
+            "feature": "numeric__jaundice_level_mg_dl",
+            "shap_value": -0.17194235596735444
+          },
+          {
+            "feature": "numeric__heart_rate_bpm",
+            "shap_value": -0.08186966797610194
+          },
+          {
+            "feature": "numeric__oxygen_saturation",
+            "shap_value": -0.07957276062557661
+          },
+          {
+            "feature": "numeric__age_days",
+            "shap_value": -0.059447375111549905
+          },
+          {
+            "feature": "numeric__immunizations_done",
+            "shap_value": -0.02936970348132329
+          },
+          {
+            "feature": "numeric__temperature_c",
+            "shap_value": -0.007350986758335532
+          },
+          {
+            "feature": "numeric__birth_length_cm",
+            "shap_value": -0.004426120284835604
+          },
+          {
+            "feature": "numeric__head_circumference_cm",
+            "shap_value": -0.0038552554493109245
+          },
+          {
+            "feature": "numeric__feeding_frequency_per_day",
+            "shap_value": -0.0037308761406669813
+          },
+          {
+            "feature": "numeric__urine_output_count",
+            "shap_value": -0.0034044695413040383
+          },
+          {
+            "feature": "numeric__respiratory_rate_bpm",
+            "shap_value": -0.0031086610518992436
+          },
+          {
+            "feature": "numeric__weight_kg",
+            "shap_value": -0.002742629669210938
+          },
+          {
+            "feature": "categorical__feeding_type_Mixed",
+            "shap_value": -0.0024953617928603357
+          },
+          {
+            "feature": "numeric__length_cm",
+            "shap_value": 0.002207958010196935
+          },
+          {
+            "feature": "numeric__birth_weight_kg",
+            "shap_value": -0.0020719731093015673
+          }
+        ],
+        "warning": "SHAP values describe model associations, not causes or clinical advice."
+      }
+    },
+    "explanation_status": "generated",
+    "prediction_status": "generated",
+    "prediction_error": null,
+    "explanation_error": null
+  },
+  {
+    "infant_id": "baby-001",
+    "simulated": true,
+    "recorded_at": "2026-10-08T03:30:00Z",
+    "gender": "male",
+    "gestational_age_weeks": 38.0,
+    "birth_weight_kg": 2.8,
+    "birth_length_cm": 48.0,
+    "birth_head_circumference_cm": 34.0,
+    "age_days": 44,
+    "length_cm": 54.0,
+    "head_circumference_cm": 37.0,
+    "temperature_c": 36.8,
+    "heart_rate_bpm": 138,
+    "respiratory_rate_bpm": 42,
+    "oxygen_saturation": 98.0,
+    "weight_kg": 3.6,
+    "feeding_type": "Breastfeeding",
+    "feeding_frequency_per_day": 8,
+    "urine_output_count": 7,
+    "stool_count": 2,
+    "jaundice_level_mg_dl": 0.0,
+    "apgar_score": 9.0,
+    "immunizations_done": 1,
+    "reflexes_normal": 1,
+    "sleeping_hours": 15.0,
+    "vaccination_status": "Up to date",
+    "symptoms": [],
+    "id": "4a67594c-c14b-44d8-8c0c-a16d521cb18e",
+    "risk_level": "routine monitoring",
+    "risk_reasons": [],
+    "risk_basis": "demonstration thresholds and reported symptoms",
+    "model": {
+      "prediction": "healthy",
+      "probability_at_risk": 0.04,
+      "explanation": {
+        "top_contributions": [
+          {
+            "feature": "numeric__jaundice_level_mg_dl",
+            "shap_value": -0.17194235596735444
+          },
+          {
+            "feature": "numeric__heart_rate_bpm",
+            "shap_value": -0.08186966797610194
+          },
+          {
+            "feature": "numeric__oxygen_saturation",
+            "shap_value": -0.07957276062557661
+          },
+          {
+            "feature": "numeric__age_days",
+            "shap_value": -0.059447375111549905
+          },
+          {
+            "feature": "numeric__immunizations_done",
+            "shap_value": -0.02936970348132329
+          },
+          {
+            "feature": "numeric__temperature_c",
+            "shap_value": -0.007350986758335532
+          },
+          {
+            "feature": "numeric__birth_length_cm",
+            "shap_value": -0.004426120284835604
+          },
+          {
+            "feature": "numeric__head_circumference_cm",
+            "shap_value": -0.0038552554493109245
+          },
+          {
+            "feature": "numeric__feeding_frequency_per_day",
+            "shap_value": -0.0037308761406669813
+          },
+          {
+            "feature": "numeric__urine_output_count",
+            "shap_value": -0.0034044695413040383
+          },
+          {
+            "feature": "numeric__respiratory_rate_bpm",
+            "shap_value": -0.0031086610518992436
+          },
+          {
+            "feature": "numeric__weight_kg",
+            "shap_value": -0.002742629669210938
+          },
+          {
+            "feature": "categorical__feeding_type_Mixed",
+            "shap_value": -0.0024953617928603357
+          },
+          {
+            "feature": "numeric__length_cm",
+            "shap_value": 0.002207958010196935
+          },
+          {
+            "feature": "numeric__birth_weight_kg",
+            "shap_value": -0.0020719731093015673
+          }
+        ],
+        "warning": "SHAP values describe model associations, not causes or clinical advice."
+      }
+    },
+    "explanation_status": "generated",
+    "prediction_status": "generated",
+    "prediction_error": null,
+    "explanation_error": null
+  },
+  {
+    "infant_id": "baby-001",
+    "simulated": false,
+    "recorded_at": "2026-10-08T10:03:48.083604Z",
+    "gender": "male",
+    "gestational_age_weeks": 38.0,
+    "birth_weight_kg": 2.8,
+    "birth_length_cm": 48.0,
+    "birth_head_circumference_cm": 34.0,
+    "age_days": 44,
+    "length_cm": 54.0,
+    "head_circumference_cm": 37.0,
+    "temperature_c": 36.8,
+    "heart_rate_bpm": 138,
+    "respiratory_rate_bpm": 42,
+    "oxygen_saturation": 98.0,
+    "weight_kg": 3.6,
+    "feeding_type": "Breastfeeding",
+    "feeding_frequency_per_day": 8,
+    "urine_output_count": 7,
+    "stool_count": 2,
+    "jaundice_level_mg_dl": 0.0,
+    "apgar_score": 9.0,
+    "immunizations_done": 1,
+    "reflexes_normal": 1,
+    "sleeping_hours": 15.0,
+    "vaccination_status": "Up to date",
+    "symptoms": [],
+    "baby_profile": {
+      "baby_id": "baby-001",
+      "baby_name": "shree",
+      "sex": "male",
+      "date_of_birth": "2026-08-25",
+      "gestational_age_weeks": 38.0,
+      "birth_weight_kg": 2.8,
+      "birth_length_cm": 48.0,
+      "birth_head_circumference_cm": 34.0,
+      "age": {
+        "age_days": 44,
+        "age_years": 0,
+        "age_months": 1,
+        "age_days_remainder": 13,
+        "age_display": "1 month 13 days"
+      }
+    },
+    "growth_assessment": {
+      "assessment": "growth data recorded",
+      "age_days": 44,
+      "age_display": "1 month 13 days",
+      "sex": "male",
+      "gestational_age_weeks": 38.0,
+      "birth_weight_kg": 2.8,
+      "current_weight_kg": 3.6,
+      "weight_change_from_birth_kg": 0.8,
+      "weight_change_from_birth_percent": 28.57,
+      "weight_change_from_previous_kg": 0.0,
+      "current_length_cm": 54.0,
+      "current_head_circumference_cm": 37.0,
+      "notes": [
+        "current weight is above recorded birth weight",
+        "weight is unchanged from the previous reading"
+      ],
+      "interpretation": "Growth should be interpreted using age-, sex-, gestational-age-, and trajectory-aware reference standards. A single weight value is not classified as normal or abnormal by itself.",
+      "reference_source": "WHO age- and sex-specific growth standards are intended for the reference layer."
+    },
+    "id": "ca14af37-0f4e-4879-9b60-bbe4ba66f68d",
+    "risk_level": "routine monitoring",
+    "risk_reasons": [],
+    "risk_basis": "context-aware newborn reference rules, reported symptoms, Baby Profile context, and growth trajectory data",
+    "model": {
+      "prediction": "healthy",
+      "probability_at_risk": 0.04,
+      "explanation": {
+        "top_contributions": [
+          {
+            "feature": "numeric__jaundice_level_mg_dl",
+            "shap_value": -0.17194235596735444
+          },
+          {
+            "feature": "numeric__heart_rate_bpm",
+            "shap_value": -0.08186966797610194
+          },
+          {
+            "feature": "numeric__oxygen_saturation",
+            "shap_value": -0.07957276062557661
+          },
+          {
+            "feature": "numeric__age_days",
+            "shap_value": -0.059447375111549905
+          },
+          {
+            "feature": "numeric__immunizations_done",
+            "shap_value": -0.02936970348132329
+          },
+          {
+            "feature": "numeric__temperature_c",
+            "shap_value": -0.007350986758335532
+          },
+          {
+            "feature": "numeric__birth_length_cm",
+            "shap_value": -0.004426120284835604
+          },
+          {
+            "feature": "numeric__head_circumference_cm",
+            "shap_value": -0.0038552554493109245
+          },
+          {
+            "feature": "numeric__feeding_frequency_per_day",
+            "shap_value": -0.0037308761406669813
+          },
+          {
+            "feature": "numeric__urine_output_count",
+            "shap_value": -0.0034044695413040383
+          },
+          {
+            "feature": "numeric__respiratory_rate_bpm",
+            "shap_value": -0.0031086610518992436
+          },
+          {
+            "feature": "numeric__weight_kg",
+            "shap_value": -0.002742629669210938
+          },
+          {
+            "feature": "categorical__feeding_type_Mixed",
+            "shap_value": -0.0024953617928603357
+          },
+          {
+            "feature": "numeric__length_cm",
+            "shap_value": 0.002207958010196935
+          },
+          {
+            "feature": "numeric__birth_weight_kg",
+            "shap_value": -0.0020719731093015673
+          }
+        ],
+        "warning": "SHAP values describe model associations, not causes or clinical advice."
+      }
+    },
+    "explanation_status": "generated",
+    "prediction_status": "generated",
+    "prediction_error": null,
+    "explanation_error": null
+  },
+  {
+    "infant_id": "baby-001",
+    "simulated": false,
+    "recorded_at": "2026-10-08T13:45:37.970000Z",
+    "gender": "male",
+    "gestational_age_weeks": 38.0,
+    "birth_weight_kg": 2.8,
+    "birth_length_cm": 48.0,
+    "birth_head_circumference_cm": 34.0,
+    "age_days": 44,
+    "length_cm": 54.0,
+    "head_circumference_cm": 37.0,
+    "temperature_c": 36.8,
+    "heart_rate_bpm": 138,
+    "respiratory_rate_bpm": 42,
+    "oxygen_saturation": 98.0,
+    "weight_kg": 3.6,
+    "feeding_type": "Breastfeeding",
+    "feeding_frequency_per_day": 8,
+    "urine_output_count": 7,
+    "stool_count": 2,
+    "jaundice_level_mg_dl": 0.0,
+    "apgar_score": 9.0,
+    "immunizations_done": 1,
+    "reflexes_normal": 1,
+    "sleeping_hours": 15.0,
+    "vaccination_status": "Recorded in baby profile",
+    "symptoms": [],
+    "baby_profile": {
+      "baby_id": "baby-001",
+      "baby_name": "shree",
+      "sex": "male",
+      "date_of_birth": "2026-08-25",
+      "gestational_age_weeks": 38.0,
+      "birth_weight_kg": 2.8,
+      "birth_length_cm": 48.0,
+      "birth_head_circumference_cm": 34.0,
+      "age": {
+        "age_days": 44,
+        "age_years": 0,
+        "age_months": 1,
+        "age_days_remainder": 13,
+        "age_display": "1 month 13 days"
+      }
+    },
+    "growth_assessment": {
+      "assessment": "growth data recorded",
+      "age_days": 44,
+      "age_display": "1 month 13 days",
+      "sex": "male",
+      "gestational_age_weeks": 38.0,
+      "birth_weight_kg": 2.8,
+      "current_weight_kg": 3.6,
+      "weight_change_from_birth_kg": 0.8,
+      "weight_change_from_birth_percent": 28.57,
+      "weight_change_from_previous_kg": 0.0,
+      "current_length_cm": 54.0,
+      "current_head_circumference_cm": 37.0,
+      "notes": [
+        "current weight is above recorded birth weight",
+        "weight is unchanged from the previous reading"
+      ],
+      "interpretation": "Growth should be interpreted using age-, sex-, gestational-age-, and trajectory-aware reference standards. A single weight value is not classified as normal or abnormal by itself.",
+      "reference_source": "WHO age- and sex-specific growth standards are intended for the reference layer."
+    },
+    "id": "11ed4083-3bb7-4f82-acc6-18a64552c1c2",
+    "risk_level": "routine monitoring",
+    "risk_reasons": [],
+    "risk_basis": "context-aware newborn reference rules, reported symptoms, Baby Profile context, and growth trajectory data",
+    "model": {
+      "prediction": "healthy",
+      "probability_at_risk": 0.04,
+      "explanation": {
+        "top_contributions": [
+          {
+            "feature": "numeric__jaundice_level_mg_dl",
+            "shap_value": -0.17194235596735444
+          },
+          {
+            "feature": "numeric__heart_rate_bpm",
+            "shap_value": -0.08186966797610194
+          },
+          {
+            "feature": "numeric__oxygen_saturation",
+            "shap_value": -0.07957276062557661
+          },
+          {
+            "feature": "numeric__age_days",
+            "shap_value": -0.059447375111549905
+          },
+          {
+            "feature": "numeric__immunizations_done",
+            "shap_value": -0.02936970348132329
+          },
+          {
+            "feature": "numeric__temperature_c",
+            "shap_value": -0.007350986758335532
+          },
+          {
+            "feature": "numeric__birth_length_cm",
+            "shap_value": -0.004426120284835604
+          },
+          {
+            "feature": "numeric__head_circumference_cm",
+            "shap_value": -0.0038552554493109245
+          },
+          {
+            "feature": "numeric__feeding_frequency_per_day",
+            "shap_value": -0.0037308761406669813
+          },
+          {
+            "feature": "numeric__urine_output_count",
+            "shap_value": -0.0034044695413040383
+          },
+          {
+            "feature": "numeric__respiratory_rate_bpm",
+            "shap_value": -0.0031086610518992436
+          },
+          {
+            "feature": "numeric__weight_kg",
+            "shap_value": -0.002742629669210938
+          },
+          {
+            "feature": "categorical__feeding_type_Mixed",
+            "shap_value": -0.0024953617928603357
+          },
+          {
+            "feature": "numeric__length_cm",
+            "shap_value": 0.002207958010196935
+          },
+          {
+            "feature": "numeric__birth_weight_kg",
+            "shap_value": -0.0020719731093015673
+          }
+        ],
+        "warning": "SHAP values describe model associations, not causes or clinical advice."
+      }
+    },
+    "explanation_status": "generated",
+    "prediction_status": "generated",
+    "prediction_error": null,
+    "explanation_error": null
+  },
+  {
+    "infant_id": "baby-001",
+    "simulated": false,
+    "recorded_at": "2026-10-08T13:49:39.289000Z",
+    "gender": "male",
+    "gestational_age_weeks": 38.0,
+    "birth_weight_kg": 2.8,
+    "birth_length_cm": 48.0,
+    "birth_head_circumference_cm": 34.0,
+    "age_days": 44,
+    "length_cm": 51.0,
+    "head_circumference_cm": 34.0,
+    "temperature_c": 32.8,
+    "heart_rate_bpm": 131,
+    "respiratory_rate_bpm": 39,
+    "oxygen_saturation": 95.0,
+    "weight_kg": 3.1,
+    "feeding_type": "Breastfeeding",
+    "feeding_frequency_per_day": 9,
+    "urine_output_count": 6,
+    "stool_count": 3,
+    "jaundice_level_mg_dl": 0.0,
+    "apgar_score": 9.0,
+    "immunizations_done": 1,
+    "reflexes_normal": 1,
+    "sleeping_hours": 8.0,
+    "vaccination_status": "Recorded in baby profile",
+    "symptoms": [],
+    "baby_profile": {
+      "baby_id": "baby-001",
+      "baby_name": "shree",
+      "sex": "male",
+      "date_of_birth": "2026-08-25",
+      "gestational_age_weeks": 38.0,
+      "birth_weight_kg": 2.8,
+      "birth_length_cm": 48.0,
+      "birth_head_circumference_cm": 34.0,
+      "age": {
+        "age_days": 44,
+        "age_years": 0,
+        "age_months": 1,
+        "age_days_remainder": 13,
+        "age_display": "1 month 13 days"
+      }
+    },
+    "growth_assessment": {
+      "assessment": "growth data recorded",
+      "age_days": 44,
+      "age_display": "1 month 13 days",
+      "sex": "male",
+      "gestational_age_weeks": 38.0,
+      "birth_weight_kg": 2.8,
+      "current_weight_kg": 3.1,
+      "weight_change_from_birth_kg": 0.3,
+      "weight_change_from_birth_percent": 10.71,
+      "weight_change_from_previous_kg": -0.5,
+      "current_length_cm": 51.0,
+      "current_head_circumference_cm": 34.0,
+      "notes": [
+        "current weight is above recorded birth weight",
+        "weight decreased compared with the previous reading"
+      ],
+      "interpretation": "Growth should be interpreted using age-, sex-, gestational-age-, and trajectory-aware reference standards. A single weight value is not classified as normal or abnormal by itself.",
+      "reference_source": "WHO age- and sex-specific growth standards are intended for the reference layer."
+    },
+    "id": "5254327d-8341-4075-b345-570f5c48008c",
+    "risk_level": "urgent review",
+    "risk_reasons": [
+      "temperature is below 35.5\u00b0C"
+    ],
+    "risk_basis": "context-aware newborn reference rules, reported symptoms, Baby Profile context, and growth trajectory data",
+    "model": {
+      "prediction": "at risk",
+      "probability_at_risk": 0.7666666666666667,
+      "explanation": {
+        "top_contributions": [
+          {
+            "feature": "numeric__oxygen_saturation",
+            "shap_value": 0.5161661106766217
+          },
+          {
+            "feature": "numeric__jaundice_level_mg_dl",
+            "shap_value": -0.1134675429843104
+          },
+          {
+            "feature": "numeric__heart_rate_bpm",
+            "shap_value": -0.04965732450469351
+          },
+          {
+            "feature": "numeric__immunizations_done",
+            "shap_value": -0.04357810087094482
+          },
+          {
+            "feature": "numeric__age_days",
+            "shap_value": -0.03089916622426695
+          },
+          {
+            "feature": "numeric__birth_length_cm",
+            "shap_value": -0.011433775021047305
+          },
+          {
+            "feature": "numeric__weight_kg",
+            "shap_value": 0.00997269388471161
+          },
+          {
+            "feature": "numeric__birth_weight_kg",
+            "shap_value": 0.008138379054786166
+          },
+          {
+            "feature": "numeric__temperature_c",
+            "shap_value": -0.007011177611481568
+          },
+          {
+            "feature": "categorical__feeding_type_Breastfeeding",
+            "shap_value": -0.005251131493001606
+          },
+          {
+            "feature": "numeric__feeding_frequency_per_day",
+            "shap_value": 0.005180371584415856
+          },
+          {
+            "feature": "numeric__urine_output_count",
+            "shap_value": -0.003531418862602765
+          },
+          {
+            "feature": "numeric__respiratory_rate_bpm",
+            "shap_value": -0.0026583935084517766
+          },
+          {
+            "feature": "numeric__gestational_age_weeks",
+            "shap_value": -0.002461660683208319
+          },
+          {
+            "feature": "numeric__stool_count",
+            "shap_value": -0.0022414169011498305
+          }
+        ],
+        "warning": "SHAP values describe model associations, not causes or clinical advice."
+      }
+    },
+    "explanation_status": "generated",
+    "prediction_status": "generated",
+    "prediction_error": null,
+    "explanation_error": null
+  },
+  {
+    "infant_id": "baby-001",
+    "simulated": false,
+    "recorded_at": "2026-10-08T15:20:06.236713Z",
+    "gender": "male",
+    "gestational_age_weeks": 38.0,
+    "birth_weight_kg": 2.8,
+    "birth_length_cm": 48.0,
+    "birth_head_circumference_cm": 34.0,
+    "age_days": 44,
+    "length_cm": 54.0,
+    "head_circumference_cm": 37.0,
+    "temperature_c": 36.8,
+    "heart_rate_bpm": 138,
+    "respiratory_rate_bpm": 42,
+    "oxygen_saturation": 98.0,
+    "weight_kg": 3.6,
+    "feeding_type": "Breastfeeding",
+    "feeding_frequency_per_day": 8,
+    "urine_output_count": 7,
+    "stool_count": 2,
+    "jaundice_level_mg_dl": 0.0,
+    "apgar_score": 9.0,
+    "immunizations_done": 1,
+    "reflexes_normal": 1,
+    "sleeping_hours": 15.0,
+    "vaccination_status": "Recorded in baby profile",
+    "symptoms": [],
+    "baby_profile": {
+      "baby_id": "baby-001",
+      "baby_name": "shree",
+      "sex": "male",
+      "date_of_birth": "2026-08-25",
+      "gestational_age_weeks": 38.0,
+      "birth_weight_kg": 2.8,
+      "birth_length_cm": 48.0,
+      "birth_head_circumference_cm": 34.0,
+      "age": {
+        "age_days": 44,
+        "age_years": 0,
+        "age_months": 1,
+        "age_days_remainder": 13,
+        "age_display": "1 month 13 days"
+      }
+    },
+    "growth_assessment": {
+      "assessment": "growth data recorded",
+      "age_days": 44,
+      "age_display": "1 month 13 days",
+      "sex": "male",
+      "gestational_age_weeks": 38.0,
+      "birth_weight_kg": 2.8,
+      "current_weight_kg": 3.6,
+      "weight_change_from_birth_kg": 0.8,
+      "weight_change_from_birth_percent": 28.57,
+      "weight_change_from_previous_kg": 0.5,
+      "current_length_cm": 54.0,
+      "current_head_circumference_cm": 37.0,
+      "notes": [
+        "current weight is above recorded birth weight",
+        "weight increased compared with the previous reading"
+      ],
+      "interpretation": "Growth should be interpreted using age-, sex-, gestational-age-, and trajectory-aware reference standards. A single weight value is not classified as normal or abnormal by itself.",
+      "reference_source": "WHO age- and sex-specific growth standards are intended for the reference layer."
+    },
+    "id": "e5a45765-1d10-4b85-9d22-e142a3927e1a",
+    "risk_level": "routine monitoring",
+    "risk_reasons": [],
+    "risk_basis": "context-aware newborn reference rules, reported symptoms, Baby Profile context, and growth trajectory data",
+    "model": {
+      "prediction": "healthy",
+      "probability_at_risk": 0.04,
+      "explanation": {
+        "top_contributions": [
+          {
+            "feature": "numeric__jaundice_level_mg_dl",
+            "shap_value": -0.17194235596735444
+          },
+          {
+            "feature": "numeric__heart_rate_bpm",
+            "shap_value": -0.08186966797610194
+          },
+          {
+            "feature": "numeric__oxygen_saturation",
+            "shap_value": -0.07957276062557661
+          },
+          {
+            "feature": "numeric__age_days",
+            "shap_value": -0.059447375111549905
+          },
+          {
+            "feature": "numeric__immunizations_done",
+            "shap_value": -0.02936970348132329
+          },
+          {
+            "feature": "numeric__temperature_c",
+            "shap_value": -0.007350986758335532
+          },
+          {
+            "feature": "numeric__birth_length_cm",
+            "shap_value": -0.004426120284835604
+          },
+          {
+            "feature": "numeric__head_circumference_cm",
+            "shap_value": -0.0038552554493109245
+          },
+          {
+            "feature": "numeric__feeding_frequency_per_day",
+            "shap_value": -0.0037308761406669813
+          },
+          {
+            "feature": "numeric__urine_output_count",
+            "shap_value": -0.0034044695413040383
+          },
+          {
+            "feature": "numeric__respiratory_rate_bpm",
+            "shap_value": -0.0031086610518992436
+          },
+          {
+            "feature": "numeric__weight_kg",
+            "shap_value": -0.002742629669210938
+          },
+          {
+            "feature": "categorical__feeding_type_Mixed",
+            "shap_value": -0.0024953617928603357
+          },
+          {
+            "feature": "numeric__length_cm",
+            "shap_value": 0.002207958010196935
+          },
+          {
+            "feature": "numeric__birth_weight_kg",
+            "shap_value": -0.0020719731093015673
+          }
+        ],
+        "warning": "SHAP values describe model associations, not causes or clinical advice."
+      }
+    },
+    "explanation_status": "generated",
+    "prediction_status": "generated",
+    "prediction_error": null,
+    "explanation_error": null
+  },
+  {
+    "infant_id": "baby-001",
+    "simulated": false,
+    "recorded_at": "2026-10-08T15:22:36.805000Z",
+    "gender": "male",
+    "gestational_age_weeks": 38.0,
+    "birth_weight_kg": 2.8,
+    "birth_length_cm": 48.0,
+    "birth_head_circumference_cm": 34.0,
+    "age_days": 44,
+    "length_cm": 53.0,
+    "head_circumference_cm": 35.0,
+    "temperature_c": 36.8,
+    "heart_rate_bpm": 138,
+    "respiratory_rate_bpm": 42,
+    "oxygen_saturation": 98.0,
+    "weight_kg": 3.6,
+    "feeding_type": "Breastfeeding",
+    "feeding_frequency_per_day": 6,
+    "urine_output_count": 8,
+    "stool_count": 3,
+    "jaundice_level_mg_dl": 0.0,
+    "apgar_score": 9.0,
+    "immunizations_done": 1,
+    "reflexes_normal": 1,
+    "sleeping_hours": 7.0,
+    "vaccination_status": "Recorded in baby profile",
+    "symptoms": [],
+    "baby_profile": {
+      "baby_id": "baby-001",
+      "baby_name": "shree",
+      "sex": "male",
+      "date_of_birth": "2026-08-25",
+      "gestational_age_weeks": 38.0,
+      "birth_weight_kg": 2.8,
+      "birth_length_cm": 48.0,
+      "birth_head_circumference_cm": 34.0,
+      "age": {
+        "age_days": 44,
+        "age_years": 0,
+        "age_months": 1,
+        "age_days_remainder": 13,
+        "age_display": "1 month 13 days"
+      }
+    },
+    "growth_assessment": {
+      "assessment": "growth data recorded",
+      "age_days": 44,
+      "age_display": "1 month 13 days",
+      "sex": "male",
+      "gestational_age_weeks": 38.0,
+      "birth_weight_kg": 2.8,
+      "current_weight_kg": 3.6,
+      "weight_change_from_birth_kg": 0.8,
+      "weight_change_from_birth_percent": 28.57,
+      "weight_change_from_previous_kg": 0.0,
+      "current_length_cm": 53.0,
+      "current_head_circumference_cm": 35.0,
+      "notes": [
+        "current weight is above recorded birth weight",
+        "weight is unchanged from the previous reading"
+      ],
+      "interpretation": "Growth should be interpreted using age-, sex-, gestational-age-, and trajectory-aware reference standards. A single weight value is not classified as normal or abnormal by itself.",
+      "reference_source": "WHO age- and sex-specific growth standards are intended for the reference layer."
+    },
+    "id": "9faf2c69-1c24-41a4-9273-149b16117129",
+    "risk_level": "routine monitoring",
+    "risk_reasons": [],
+    "risk_basis": "context-aware newborn reference rules, reported symptoms, Baby Profile context, and growth trajectory data",
+    "model": {
+      "prediction": "healthy",
+      "probability_at_risk": 0.03,
+      "explanation": {
+        "top_contributions": [
+          {
+            "feature": "numeric__jaundice_level_mg_dl",
+            "shap_value": -0.17538186019386973
+          },
+          {
+            "feature": "numeric__heart_rate_bpm",
+            "shap_value": -0.08364327411789567
+          },
+          {
+            "feature": "numeric__oxygen_saturation",
+            "shap_value": -0.07978478315368571
+          },
+          {
+            "feature": "numeric__age_days",
+            "shap_value": -0.05877459740494147
+          },
+          {
+            "feature": "numeric__immunizations_done",
+            "shap_value": -0.027542182541096905
+          },
+          {
+            "feature": "numeric__length_cm",
+            "shap_value": -0.008907227051801081
+          },
+          {
+            "feature": "numeric__temperature_c",
+            "shap_value": -0.008754558605268394
+          },
+          {
+            "feature": "numeric__birth_length_cm",
+            "shap_value": -0.0065932311855220116
+          },
+          {
+            "feature": "numeric__stool_count",
+            "shap_value": -0.0032555277763949182
+          },
+          {
+            "feature": "numeric__respiratory_rate_bpm",
+            "shap_value": -0.003183755873410408
+          },
+          {
+            "feature": "numeric__birth_weight_kg",
+            "shap_value": -0.0029109256891099965
+          },
+          {
+            "feature": "numeric__head_circumference_cm",
+            "shap_value": -0.0026189873414020994
+          },
+          {
+            "feature": "numeric__feeding_frequency_per_day",
+            "shap_value": -0.0021181866525430103
+          },
+          {
+            "feature": "categorical__feeding_type_Mixed",
+            "shap_value": -0.0021087405550919342
+          },
+          {
+            "feature": "numeric__weight_kg",
+            "shap_value": -0.001999958345723866
+          }
+        ],
+        "warning": "SHAP values describe model associations, not causes or clinical advice."
+      }
+    },
+    "explanation_status": "generated",
+    "prediction_status": "generated",
+    "prediction_error": null,
+    "explanation_error": null
   }
 ]

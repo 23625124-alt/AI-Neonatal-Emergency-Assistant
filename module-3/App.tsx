@@ -18,7 +18,7 @@ import {
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import API from './services/api';
+import * as API from './src/services/api';
 
 import CarePlanScreen from './screens/CarePlanScreen';
 import FeedingCarePlanScreen from './screens/FeedingCarePlanScreen';
@@ -30,10 +30,15 @@ import AIGuidanceScreen from './screens/AIGuidanceScreen';
 import BabyHealthScreen from './screens/BabyHealthScreen';
 import AddHealthReadingScreen from './screens/AddHealthReadingScreen';
 import EmergencySupportScreen from './screens/EmergencySupportScreen';
+import LoginScreen from './screens/LoginScreen';
+import QuickReadingScreen from './screens/QuickReadingScreen';
 
 const Stack = createNativeStackNavigator();
 
-function HomeScreen({navigation}: any) {
+function HomeScreen({navigation, route}: any) {
+  const user = route?.params?.user;
+  const babyId = user?.baby_id;
+
   const [latestReading, setLatestReading] = useState<any>(null);
   const [loadingHealth, setLoadingHealth] = useState(true);
 
@@ -43,17 +48,26 @@ function HomeScreen({navigation}: any) {
         try {
           setLoadingHealth(true);
 
-          const response = await API.get(
-            '/monitoring/demo-baby-001',
-          );
+          if (!babyId) {
+            console.warn(
+              'No baby ID linked to logged-in user.',
+            );
+
+            setLatestReading(null);
+            setLoadingHealth(false);
+            return;
+          }
+
+          const response =
+            await API.getMonitoringHistory(babyId);
 
           console.log(
             'Home Health Response:',
-            response.data,
+            response,
           );
 
           const readings =
-            response.data?.readings || [];
+            response?.readings || [];
 
           if (readings.length > 0) {
             const latest =
@@ -76,7 +90,7 @@ function HomeScreen({navigation}: any) {
       };
 
       fetchLatestHealth();
-    }, []),
+    }, [babyId]),
   );
 
   const isUrgent =
@@ -87,6 +101,8 @@ function HomeScreen({navigation}: any) {
       <ScrollView
         showsVerticalScrollIndicator={false}>
 
+        {/* Header */}
+
         <View style={styles.header}>
           <Text style={styles.title}>
             Neonatal Care Assistant
@@ -96,6 +112,8 @@ function HomeScreen({navigation}: any) {
             Intelligent care & decision support for your baby
           </Text>
         </View>
+
+        {/* Welcome */}
 
         <View style={styles.welcomeCard}>
           <Text style={styles.welcomeTitle}>
@@ -144,8 +162,11 @@ function HomeScreen({navigation}: any) {
 
               <Text style={styles.riskText}>
                 Risk Level:{' '}
-                {latestReading.risk_level || 'Not available'}
+                {latestReading.risk_level ||
+                  'Not available'}
               </Text>
+
+              {/* Temperature + Heart Rate */}
 
               <View style={styles.vitalsRow}>
                 <View style={styles.vitalBox}>
@@ -169,6 +190,8 @@ function HomeScreen({navigation}: any) {
                 </View>
               </View>
 
+              {/* SpO2 + Weight */}
+
               <View style={styles.vitalsRow}>
                 <View style={styles.vitalBox}>
                   <Text style={styles.vitalLabel}>
@@ -191,12 +214,18 @@ function HomeScreen({navigation}: any) {
                 </View>
               </View>
 
+              {/* View Full Health Details */}
+
               <TouchableOpacity
                 style={styles.viewHealthButton}
                 onPress={() =>
-                  navigation.navigate('BabyHealth')
+                  navigation.navigate('CarePlan', {
+  infantId: user?.baby_id,
+  user,
+})
                 }>
-                <Text style={styles.viewHealthButtonText}>
+                <Text
+                  style={styles.viewHealthButtonText}>
                   View Full Health Details
                 </Text>
               </TouchableOpacity>
@@ -215,11 +244,10 @@ function HomeScreen({navigation}: any) {
               <TouchableOpacity
                 style={styles.addReadingButton}
                 onPress={() =>
-                  navigation.navigate(
-                    'AddHealthReading',
-                  )
+                 navigation.navigate('AddHealthReading', {user})
                 }>
-                <Text style={styles.addReadingButtonText}>
+                <Text
+                  style={styles.addReadingButtonText}>
                   Add First Health Reading
                 </Text>
               </TouchableOpacity>
@@ -245,9 +273,13 @@ function HomeScreen({navigation}: any) {
             <TouchableOpacity
               style={styles.warningButton}
               onPress={() =>
-                navigation.navigate('BabyHealth')
+                navigation.navigate(
+                  'BabyHealth',
+                  {user},
+                )
               }>
-              <Text style={styles.warningButtonText}>
+              <Text
+                style={styles.warningButtonText}>
                 View Health Details
               </Text>
             </TouchableOpacity>
@@ -262,10 +294,15 @@ function HomeScreen({navigation}: any) {
 
         <View style={styles.cardContainer}>
 
+          {/* Baby Health */}
+
           <TouchableOpacity
             style={styles.card}
             onPress={() =>
-              navigation.navigate('BabyHealth')
+              navigation.navigate(
+                'BabyHealth',
+                {user},
+              )
             }>
             <Text style={styles.cardIcon}>
               ❤️
@@ -280,10 +317,33 @@ function HomeScreen({navigation}: any) {
             </Text>
           </TouchableOpacity>
 
+          {/* Add Health Reading */}
+          <TouchableOpacity
+  style={styles.card}
+  onPress={() =>
+    navigation.navigate('QuickReading', {
+      infantId: babyId,
+      user,
+    })
+  }>
+  <Text style={styles.cardIcon}>⚡</Text>
+
+  <Text style={styles.cardTitle}>
+    Quick Reading
+  </Text>
+
+  <Text style={styles.cardText}>
+    Quickly record the baby's current observations
+  </Text>
+</TouchableOpacity>
+
           <TouchableOpacity
             style={styles.card}
             onPress={() =>
-              navigation.navigate('AddHealthReading')
+            navigation.navigate(
+  'AddHealthReading',
+  {user},
+)
             }>
             <Text style={styles.cardIcon}>
               🩺
@@ -298,10 +358,14 @@ function HomeScreen({navigation}: any) {
             </Text>
           </TouchableOpacity>
 
+          {/* Care Plan */}
+
           <TouchableOpacity
             style={styles.card}
             onPress={() =>
-              navigation.navigate('CarePlan')
+              navigation.navigate(
+                'CarePlan',
+              )
             }>
             <Text style={styles.cardIcon}>
               🍼
@@ -316,10 +380,14 @@ function HomeScreen({navigation}: any) {
             </Text>
           </TouchableOpacity>
 
+          {/* Reminders */}
+
           <TouchableOpacity
             style={styles.card}
             onPress={() =>
-              navigation.navigate('Reminders')
+              navigation.navigate(
+                'Reminders',
+              )
             }>
             <Text style={styles.cardIcon}>
               ⏰
@@ -334,10 +402,14 @@ function HomeScreen({navigation}: any) {
             </Text>
           </TouchableOpacity>
 
+          {/* AI Guidance */}
+
           <TouchableOpacity
             style={styles.card}
             onPress={() =>
-              navigation.navigate('AIGuidance')
+              navigation.navigate(
+                'AIGuidance',
+              )
             }>
             <Text style={styles.cardIcon}>
               🤖
@@ -359,7 +431,9 @@ function HomeScreen({navigation}: any) {
         <TouchableOpacity
           style={styles.alertCard}
           onPress={() =>
-            navigation.navigate('EmergencySupport')
+            navigation.navigate(
+              'EmergencySupport',
+            )
           }>
 
           <Text style={styles.alertTitle}>
@@ -380,84 +454,149 @@ function HomeScreen({navigation}: any) {
 
 function App() {
   useEffect(() => {
-    const requestNotificationPermission = async () => {
-      await notifee.requestPermission();
-    };
+    const requestNotificationPermission =
+      async () => {
+        await notifee.requestPermission();
+      };
 
     requestNotificationPermission();
   }, []);
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+
+      <Stack.Navigator
+        initialRouteName="Login">
+
+        {/* Login */}
+
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        {/* Home */}
 
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{headerShown: false}}
+          options={{
+            headerShown: false,
+          }}
         />
+
+        {/* Baby Health */}
 
         <Stack.Screen
           name="BabyHealth"
           component={BabyHealthScreen}
-          options={{title: 'Baby Health'}}
+          options={{
+            title: 'Baby Health',
+          }}
         />
+
+        {/* Add Health Reading */}
 
         <Stack.Screen
           name="AddHealthReading"
           component={AddHealthReadingScreen}
-          options={{title: 'Add Health Reading'}}
+          options={{
+            title: 'Add Health Reading',
+          }}
         />
+        <Stack.Screen
+  name="QuickReading"
+  component={QuickReadingScreen}
+  options={{
+    title: 'Quick Reading',
+  }}
+/>
+
+        {/* Care Plan */}
 
         <Stack.Screen
           name="CarePlan"
           component={CarePlanScreen}
-          options={{title: 'Care Plan'}}
+          options={{
+            title: 'Care Plan',
+          }}
         />
+
+        {/* Feeding Care Plan */}
 
         <Stack.Screen
           name="FeedingCarePlan"
           component={FeedingCarePlanScreen}
-          options={{title: 'Feeding Care Plan'}}
+          options={{
+            title: 'Feeding Care Plan',
+          }}
         />
+
+        {/* Sleep Care Plan */}
 
         <Stack.Screen
           name="SleepCarePlan"
           component={SleepCarePlanScreen}
-          options={{title: 'Sleep Care Plan'}}
+          options={{
+            title: 'Sleep Care Plan',
+          }}
         />
+
+        {/* Weight Care Plan */}
 
         <Stack.Screen
           name="WeightCarePlan"
           component={WeightCarePlanScreen}
-          options={{title: 'Weight Care Plan'}}
+          options={{
+            title: 'Weight Care Plan',
+          }}
         />
+
+        {/* Vaccination Care Plan */}
 
         <Stack.Screen
           name="VaccinationCarePlan"
           component={VaccinationCarePlanScreen}
-          options={{title: 'Vaccination Care Plan'}}
+          options={{
+            title: 'Vaccination Care Plan',
+          }}
         />
+
+        {/* Reminders */}
 
         <Stack.Screen
           name="Reminders"
           component={RemindersScreen}
-          options={{title: 'Smart Reminders'}}
+          options={{
+            title: 'Smart Reminders',
+          }}
         />
+
+        {/* AI Guidance */}
 
         <Stack.Screen
           name="AIGuidance"
           component={AIGuidanceScreen}
-          options={{title: 'AI Guidance'}}
+          options={{
+            title: 'AI Guidance',
+          }}
         />
+
+        {/* Emergency Support */}
 
         <Stack.Screen
           name="EmergencySupport"
           component={EmergencySupportScreen}
-          options={{title: 'Emergency Support'}}
+          options={{
+            title: 'Emergency Support',
+          }}
         />
 
       </Stack.Navigator>
+
     </NavigationContainer>
   );
 }

@@ -1,0 +1,23 @@
+[
+  {
+    "baby_id": "baby-001",
+    "baby_name": "shree",
+    "date_of_birth": "2026-08-25",
+    "sex": "male",
+    "gestational_age_weeks": 38.0,
+    "birth_weight_kg": 2.8,
+    "birth_length_cm": 48.0,
+    "birth_head_circumference_cm": 34.0,
+    "feeding_type": "Breastfeeding",
+    "parent_name": "Muthu",
+    "hospital_name": "City Care Hospital",
+    "created_at": "2026-10-07T14:14:24.969773+00:00",
+    "age": {
+      "age_days": 43,
+      "age_years": 0,
+      "age_months": 1,
+      "age_days_remainder": -18,
+      "age_display": "1 month"
+    }
+  }
+]
