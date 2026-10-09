@@ -32,6 +32,7 @@ import AddHealthReadingScreen from './screens/AddHealthReadingScreen';
 import EmergencySupportScreen from './screens/EmergencySupportScreen';
 import LoginScreen from './screens/LoginScreen';
 import QuickReadingScreen from './screens/QuickReadingScreen';
+import DailyFeedingLogScreen from './screens/DailyFeedingLogScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -317,6 +318,20 @@ function HomeScreen({navigation, route}: any) {
             </Text>
           </TouchableOpacity>
 
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() =>
+              navigation.navigate('DailyFeedingLog', {
+                infantId: babyId,
+              })
+            }>
+            <Text style={styles.cardIcon}>🍼</Text>
+            <Text style={styles.cardTitle}>Daily Feeding Log</Text>
+            <Text style={styles.cardText}>
+              Record feeding, urine, and stool counts by date
+            </Text>
+          </TouchableOpacity>
+
           {/* Add Health Reading */}
           <TouchableOpacity
   style={styles.card}
@@ -514,6 +529,12 @@ function App() {
     title: 'Quick Reading',
   }}
 />
+
+        <Stack.Screen
+          name="DailyFeedingLog"
+          component={DailyFeedingLogScreen}
+          options={{title: 'Daily Feeding Log'}}
+        />
 
         {/* Care Plan */}
 

@@ -4,6 +4,8 @@ import {
   BabyAuthResponse,
   BabyProfilePayload,
   CareGuidance,
+  FeedingLog,
+  FeedingLogPayload,
   GlobalExplanation,
   HistoryResponse,
   MonitoringResponse,
@@ -219,6 +221,33 @@ export function loginUser(
         username,
         password,
       }),
+    },
+  );
+}
+
+export function createFeedingLog(log: FeedingLogPayload): Promise<FeedingLog> {
+  return request<FeedingLog>('/feeding-logs', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(log),
+  });
+}
+
+export function getFeedingLogs(infantId: string): Promise<FeedingLog[]> {
+  return request<FeedingLog[]>(`/feeding-logs/${encodeURIComponent(infantId)}`);
+}
+
+export function updateFeedingLog(
+  infantId: string,
+  logDate: string,
+  values: Omit<FeedingLogPayload, 'infant_id' | 'log_date'>,
+): Promise<FeedingLog> {
+  return request<FeedingLog>(
+    `/feeding-logs/${encodeURIComponent(infantId)}/${encodeURIComponent(logDate)}`,
+    {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(values),
     },
   );
 }

@@ -78,3 +78,19 @@ export type CareGuidance = {
 };
 export type ReminderPayload = { infant_id: string; title: string; due_date: string; category: string };
 export type Reminder = ReminderPayload & { id: string; created_at: string };
+export type FeedingLogPayload = {
+  infant_id: string;
+  log_date: string;
+  feeding_count: number;
+  urine_output_count: number;
+  stool_count: number;
+};
+export type FeedingLog = FeedingLogPayload & { id: string; created_at: string };
+export type FeedingLogPayload = {
+  infant_id: string;
+  log_date: string;
+  feeding_count: number;
+  urine_output_count: number;
+  stool_count: number;
+};
+export type FeedingLog = FeedingLogPayload & { id: string; created_at: string };

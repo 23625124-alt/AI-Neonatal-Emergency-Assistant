@@ -25,7 +25,7 @@ python -m explainability.explain --row-index 0 --what-if temperature_c=37.0
 uvicorn api.main:app --reload
 ```
 
-The API exposes `GET /health`, `POST /monitoring/readings`, `GET /monitoring/{infant_id}`, `POST /care/reminders`, and `GET /care/{infant_id}`. Interactive API documentation is available at `http://127.0.0.1:8000/docs` while the server is running. Monitoring data is stored locally under `data/processed/` for development.
+The API exposes baby registration/profile routes, monitoring routes, persisted reminders, and standalone daily feeding logs (`POST /feeding-logs`, `GET /feeding-logs/{infant_id}`, and `PUT /feeding-logs/{infant_id}/{log_date}`). A feeding log contains only a date and feeding, urine, and stool counts; duplicate dates return `409` and must be explicitly updated. Interactive API documentation is available at `http://127.0.0.1:8000/docs` while the server is running. Monitoring, profile, reminder, and feeding-log data use MongoDB when configured and fall back to local JSON for development.
 
 The scripts save prepared data, a quality report, a model, evaluation metrics, and explanation files under `data/processed/`, `models/`, `evaluation/`, and `explainability/`.
 

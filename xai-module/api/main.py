@@ -58,6 +58,13 @@ BABIES_PATH = (
     / "baby_profiles.json"
 )
 
+FEEDING_LOGS_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "processed"
+    / "feeding_logs.json"
+)
+
 
 USERS_PATH = (
     PROJECT_ROOT
@@ -464,6 +471,20 @@ class WhatIfRequest(BaseModel):
         min_length=1,
         max_length=10,
     )
+
+
+class FeedingLogRequest(BaseModel):
+    infant_id: str = Field(min_length=1, max_length=80)
+    log_date: date
+    feeding_count: int = Field(ge=0, le=30)
+    urine_output_count: int = Field(ge=0, le=100)
+    stool_count: int = Field(ge=0, le=100)
+
+
+class FeedingLogUpdateRequest(BaseModel):
+    feeding_count: int = Field(ge=0, le=30)
+    urine_output_count: int = Field(ge=0, le=100)
+    stool_count: int = Field(ge=0, le=100)
 
 
 # ============================================================
@@ -2231,3 +2252,68 @@ def care_guidance(
 
         "reminder_window_days": 7,
     }
+
+
+@app.post("/feeding-logs", status_code=201)
+def create_feeding_log(request: FeedingLogRequest) -> dict[str, Any]:
+    if _find_baby(request.infant_id) is None:
+        raise HTTPException(status_code=404, detail="Baby profile not found.")
+    logs = _read_records(FEEDING_LOGS_PATH, "feeding_logs")
+    if any(
+        log.get("infant_id") == request.infant_id
+        and log.get("log_date") == request.log_date.isoformat()
+        for log in logs
+    ):
+        raise HTTPException(
+            status_code=409,
+            detail="A feeding log already exists for this baby and date. Use the update endpoint.",
+        )
+    log = request.model_dump(mode="json")
+    log.update({"id": str(uuid4()), "created_at": datetime.now(timezone.utc).isoformat()})
+    STORE.append(FEEDING_LOGS_PATH, "feeding_logs", log)
+    return log
+
+
+@app.get("/feeding-logs/{infant_id}")
+def list_feeding_logs(infant_id: str) -> list[dict[str, Any]]:
+    if _find_baby(infant_id) is None:
+        raise HTTPException(status_code=404, detail="Baby profile not found.")
+    logs = [
+        log
+        for log in _read_records(FEEDING_LOGS_PATH, "feeding_logs")
+        if log.get("infant_id") == infant_id
+    ]
+    logs.sort(key=lambda log: log["log_date"], reverse=True)
+    return logs
+
+
+@app.put("/feeding-logs/{infant_id}/{log_date}")
+def update_feeding_log(
+    infant_id: str,
+    log_date: date,
+    request: FeedingLogUpdateRequest,
+) -> dict[str, Any]:
+    if _find_baby(infant_id) is None:
+        raise HTTPException(status_code=404, detail="Baby profile not found.")
+    logs = _read_records(FEEDING_LOGS_PATH, "feeding_logs")
+    existing = next(
+        (
+            log
+            for log in logs
+            if log.get("infant_id") == infant_id
+            and log.get("log_date") == log_date.isoformat()
+        ),
+        None,
+    )
+    if existing is None:
+        raise HTTPException(status_code=404, detail="Feeding log not found.")
+    updated = {**existing, **request.model_dump()}
+    if not STORE.update_one(
+        FEEDING_LOGS_PATH,
+        "feeding_logs",
+        "id",
+        existing["id"],
+        updated,
+    ):
+        raise HTTPException(status_code=500, detail="Unable to update the feeding log.")
+    return updated

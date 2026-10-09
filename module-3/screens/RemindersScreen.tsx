@@ -46,50 +46,6 @@ function RemindersScreen({infantId}: {infantId?: string}) {
           </Text>
         </View>
 
-        <View style={styles.reminderCard}>
-          <Text style={styles.icon}>🍼</Text>
-          <View style={styles.content}>
-            <Text style={styles.reminderTitle}>Feeding Time</Text>
-            <Text style={styles.time}>10:00 AM</Text>
-            <Text style={styles.description}>
-              Follow the recommended feeding schedule.
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.reminderCard}>
-          <Text style={styles.icon}>💊</Text>
-          <View style={styles.content}>
-            <Text style={styles.reminderTitle}>Medicine</Text>
-            <Text style={styles.time}>01:00 PM</Text>
-            <Text style={styles.description}>
-              Give medicine according to the doctor's instructions.
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.reminderCard}>
-          <Text style={styles.icon}>💉</Text>
-          <View style={styles.content}>
-            <Text style={styles.reminderTitle}>Vaccination</Text>
-            <Text style={styles.time}>03:00 PM</Text>
-            <Text style={styles.description}>
-              Check upcoming vaccination schedules.
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.reminderCard}>
-          <Text style={styles.icon}>⚖️</Text>
-          <View style={styles.content}>
-            <Text style={styles.reminderTitle}>Weight Check</Text>
-            <Text style={styles.time}>06:00 PM</Text>
-            <Text style={styles.description}>
-              Record your baby's latest weight.
-            </Text>
-          </View>
-        </View>
-
         <View style={styles.infoCard}>
           <Text style={styles.infoTitle}>🔔 Reminder Tip</Text>
           <Text style={styles.infoText}>

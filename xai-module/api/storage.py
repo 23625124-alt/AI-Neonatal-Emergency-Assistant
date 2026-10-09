@@ -81,3 +81,25 @@ class DataStore:
             record = self._database[collection].find_one({field: value}, {"_id": 0})
             return _json_safe(record) if record is not None else None
         return next((item for item in self.read(path, collection) if item.get(field) == value), None)
+
+    def update_one(
+        self,
+        path: Path,
+        collection: str,
+        field: str,
+        value: str,
+        record: dict[str, Any],
+    ) -> bool:
+        if self._database is not None:
+            result = self._database[collection].update_one(
+                {field: value},
+                {"$set": {key: item for key, item in record.items() if key != "_id"}},
+            )
+            return result.matched_count > 0
+        records = self.read(path, collection)
+        for index, item in enumerate(records):
+            if item.get(field) == value:
+                records[index] = record
+                self.replace(path, collection, records)
+                return True
+        return False
