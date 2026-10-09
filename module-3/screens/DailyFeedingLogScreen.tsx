@@ -3,7 +3,7 @@ import {ActivityIndicator, Button, ScrollView, StyleSheet, Text, TextInput, View
 import {createFeedingLog, getFeedingLogs, updateFeedingLog} from '../src/services/api';
 import {FeedingLog} from '../src/types/api';
 
-type Props = {infantId: string};
+type Props = {infantId?: string; route?: {params?: {infantId?: string}}};
 type Form = {log_date: string; feeding_count: string; urine_output_count: string; stool_count: string};
 
 const emptyForm = (): Form => ({
@@ -13,7 +13,8 @@ const emptyForm = (): Form => ({
   stool_count: '',
 });
 
-export default function DailyFeedingLogScreen({infantId}: Props) {
+export default function DailyFeedingLogScreen({infantId: propInfantId, route}: Props) {
+  const infantId = propInfantId || route?.params?.infantId || '';
   const [form, setForm] = React.useState<Form>(emptyForm);
   const [logs, setLogs] = React.useState<FeedingLog[]>([]);
   const [editingDate, setEditingDate] = React.useState<string | null>(null);

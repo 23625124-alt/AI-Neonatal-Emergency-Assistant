@@ -86,11 +86,3 @@ export type FeedingLogPayload = {
   stool_count: number;
 };
 export type FeedingLog = FeedingLogPayload & { id: string; created_at: string };
-export type FeedingLogPayload = {
-  infant_id: string;
-  log_date: string;
-  feeding_count: number;
-  urine_output_count: number;
-  stool_count: number;
-};
-export type FeedingLog = FeedingLogPayload & { id: string; created_at: string };
