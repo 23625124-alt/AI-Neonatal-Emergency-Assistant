@@ -616,20 +616,6 @@ def cancel_appointment(appointment_id: str):
 )
 
     return updated_appointment
-
-@app.get("/appointments/{infant_id}")
-def get_appointments(infant_id: str):
-    appointments = _read_records(
-        APPOINTMENTS_PATH,
-        "appointments"
-    )
-
-    return [
-        appointment
-        for appointment in appointments
-        if appointment.get("infant_id") == infant_id
-    ]
-
 # ============================================================
 # AGE CALCULATION
 # ============================================================
