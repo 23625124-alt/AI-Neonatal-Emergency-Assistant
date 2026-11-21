@@ -22,19 +22,25 @@ python -m evaluation.evaluate_model
 python -m explainability.explain --row-index 0
 python -m explainability.explain --trend
 python -m explainability.explain --row-index 0 --what-if temperature_c=37.0
-uvicorn api.main:app --reload
+uvicorn api.main:app --reload --port 8001
 ```
 
-The API exposes `GET /health`, `POST /monitoring/readings`, `GET /monitoring/{infant_id}`, `GET /xai/global`, `POST /xai/what-if`, `POST /care/reminders`, and `GET /care/{infant_id}`. Interactive API documentation is available at `http://127.0.0.1:8000/docs` while the server is running. Monitoring data is stored locally under `data/processed/` for development.
+In another terminal, send finite simulated readings to an existing baby profile:
+
+```powershell
+python -m monitoring.simulator --infant-id baby-001 --count 3 --interval 5
+```
+
+The API exposes `GET /health`, `POST /monitoring/readings`, `GET /monitoring/{infant_id}`, `GET /xai/global`, `POST /xai/what-if`, `POST /care/reminders`, `GET /care/reminders/{infant_id}`, and `GET /care/{infant_id}`. Interactive API documentation is available at `http://127.0.0.1:8001/docs` while the server is running. Monitoring data is stored locally under `data/processed/` for development.
 
 ## MongoDB Atlas storage
 
-The API uses local JSON files by default. To enable MongoDB Atlas, set the connection string and database name before starting Uvicorn:
+The API uses local JSON files by default. To enable MongoDB Atlas, set the connection string and database name before starting Uvicorn on the same port used by the mobile app:
 
 ```powershell
 $env:MONGODB_URI = "mongodb+srv://<username>:<password>@<cluster>/<database>?retryWrites=true&w=majority"
 $env:MONGODB_DATABASE = "neonatal_xai"
-uvicorn api.main:app --reload
+uvicorn api.main:app --reload --port 8001
 ```
 
 The API stores monitoring readings in the `monitoring_readings` collection and reminders in the `care_reminders` collection. Check `GET /health`; its `storage_backend` value is `mongodb` when Atlas is connected and `json` when the application is using the local fallback. Keep the Atlas URI in an environment variable or secret manager and never commit it.

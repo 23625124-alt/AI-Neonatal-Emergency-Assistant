@@ -45,12 +45,6 @@ type Reading = {
   symptoms?: string[];
 };
 
-type MonitoringResponseLocal = {
-  infant_id?: string;
-  count?: number;
-  readings?: Reading[];
-};
-
 function formatDate(value?: string) {
   if (!value) {
     return 'Not available';

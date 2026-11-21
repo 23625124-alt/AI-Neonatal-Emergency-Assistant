@@ -81,12 +81,14 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Send finite simulated readings to the local monitoring API.")
     parser.add_argument("--count", type=int, default=3)
     parser.add_argument("--interval", type=float, default=5.0)
-    parser.add_argument("--endpoint", default="http://127.0.0.1:8000/monitoring/readings")
+    parser.add_argument("--infant-id", default="baby-001")
+    parser.add_argument("--endpoint", default="http://127.0.0.1:8001/monitoring/readings")
     args = parser.parse_args()
     sent = run_simulator(
         args.count,
         args.interval,
         lambda reading: post_reading(reading, args.endpoint),
+        infant_id=args.infant_id,
         on_error=lambda error: print(f"simulator request failed: {error}"),
     )
     print(f"sent {sent} simulated reading(s)")

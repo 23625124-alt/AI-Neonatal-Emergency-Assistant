@@ -48,7 +48,9 @@ function CarePlanScreen({navigation, route}: any) {
         {/* Sleep */}
         <TouchableOpacity
           style={styles.card}
-          onPress={() => navigation.navigate('SleepCarePlan')}
+          onPress={() =>
+            navigation.navigate('SleepCarePlan', {infantId: babyId})
+          }
         >
           <Text style={styles.icon}>😴</Text>
 
@@ -64,7 +66,9 @@ function CarePlanScreen({navigation, route}: any) {
         {/* Weight Monitoring */}
         <TouchableOpacity
           style={styles.card}
-          onPress={() => navigation.navigate('WeightCarePlan')}
+          onPress={() =>
+            navigation.navigate('WeightCarePlan', {infantId: babyId})
+          }
         >
           <Text style={styles.icon}>⚖️</Text>
 
@@ -80,7 +84,9 @@ function CarePlanScreen({navigation, route}: any) {
         {/* Vaccination */}
         <TouchableOpacity
           style={styles.card}
-          onPress={() => navigation.navigate('VaccinationCarePlan')}
+          onPress={() =>
+            navigation.navigate('VaccinationCarePlan', {infantId: babyId})
+          }
         >
           <Text style={styles.icon}>💉</Text>
 

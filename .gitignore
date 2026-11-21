@@ -35,3 +35,15 @@ Thumbs.db
 
 # Internal AI handoff notes
 PROJECT_HANDOFF_FOR_CHATGPT.md
+# Neonatal user and health data
+**/data/processed/*.json
+**/data/processed/*.csv
+
+# Backup files
+*.backup
+App.backup.tsx
+
+# Local project copies
+module-3/xai-module/
+
+module-3/.vscode/

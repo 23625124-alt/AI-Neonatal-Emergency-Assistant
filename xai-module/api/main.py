@@ -58,6 +58,13 @@ BABIES_PATH = (
     / "baby_profiles.json"
 )
 
+APPOINTMENTS_PATH = (
+    PROJECT_ROOT
+    / "data"
+    / "processed"
+    / "appointments.json"
+)
+
 FEEDING_LOGS_PATH = (
     PROJECT_ROOT
     / "data"
@@ -486,6 +493,142 @@ class FeedingLogUpdateRequest(BaseModel):
     urine_output_count: int = Field(ge=0, le=100)
     stool_count: int = Field(ge=0, le=100)
 
+class AppointmentRequest(BaseModel):
+    infant_id: str = Field(min_length=1, max_length=80)
+    doctor_name: str = Field(min_length=1, max_length=100)
+    appointment_date: date
+    appointment_time: str = Field(min_length=5, max_length=5)
+    reason: str = Field(min_length=1, max_length=500)
+
+# ============================================================
+# APPOINTMENT API ROUTES
+# ============================================================
+
+@app.post("/appointments", status_code=201)
+def create_appointment(request: AppointmentRequest):
+    """Create a new appointment for an existing baby."""
+
+    baby = _find_baby(request.infant_id)
+
+    if not baby:
+        raise HTTPException(
+            status_code=404,
+            detail="Baby not found. Please create the baby profile first."
+        )
+
+    if request.appointment_date < date.today():
+        raise HTTPException(
+            status_code=400,
+            detail="Appointment date cannot be in the past."
+        )
+
+    try:
+        datetime.strptime(request.appointment_time, "%H:%M")
+    except ValueError:
+        raise HTTPException(
+            status_code=400,
+            detail="Appointment time must be in HH:MM format."
+        )
+
+    appointment = {
+        "appointment_id": str(uuid4()),
+        "infant_id": request.infant_id,
+        "doctor_name": request.doctor_name,
+        "appointment_date": request.appointment_date.isoformat(),
+        "appointment_time": request.appointment_time,
+        "reason": request.reason,
+        "status": "scheduled",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+
+    STORE.append(
+        APPOINTMENTS_PATH,
+        "appointments",
+        appointment
+    )
+
+    return appointment
+
+
+@app.get("/appointments")
+def get_all_appointments():
+    """Get all appointments."""
+
+    return _read_records(
+        APPOINTMENTS_PATH,
+        "appointments"
+    )
+
+
+@app.get("/appointments/{infant_id}")
+def get_appointments(infant_id: str):
+    """Get appointments for a specific baby."""
+
+    appointments = _read_records(
+        APPOINTMENTS_PATH,
+        "appointments"
+    )
+
+    return [
+        appointment
+        for appointment in appointments
+        if appointment.get("infant_id") == infant_id
+    ]
+
+
+@app.patch("/appointments/{appointment_id}/cancel")
+def cancel_appointment(appointment_id: str):
+    """Cancel an existing appointment."""
+
+    appointments = _read_records(
+        APPOINTMENTS_PATH,
+        "appointments"
+    )
+
+    appointment = next(
+        (
+            item for item in appointments
+            if item.get("appointment_id") == appointment_id
+        ),
+        None
+    )
+
+    if appointment is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Appointment not found."
+        )
+
+    if appointment.get("status") == "cancelled":
+        return appointment
+
+    updated_appointment = {
+        **appointment,
+        "status": "cancelled"
+    }
+
+    STORE.update_one(
+    APPOINTMENTS_PATH,
+    "appointments",
+    "appointment_id",
+    appointment_id,
+    updated_appointment,
+)
+
+    return updated_appointment
+
+@app.get("/appointments/{infant_id}")
+def get_appointments(infant_id: str):
+    appointments = _read_records(
+        APPOINTMENTS_PATH,
+        "appointments"
+    )
+
+    return [
+        appointment
+        for appointment in appointments
+        if appointment.get("infant_id") == infant_id
+    ]
 
 # ============================================================
 # AGE CALCULATION
@@ -2168,6 +2311,19 @@ def create_reminder(
     )
 
     return reminder
+
+
+@app.get("/care/reminders/{infant_id}")
+def list_reminders(infant_id: str) -> list[dict[str, Any]]:
+    if _find_baby(infant_id) is None:
+        raise HTTPException(status_code=404, detail="Baby profile not found.")
+    reminders = [
+        reminder
+        for reminder in _read_records(REMINDERS_PATH, "care_reminders")
+        if reminder.get("infant_id") == infant_id
+    ]
+    reminders.sort(key=lambda reminder: (reminder.get("due_date", ""), reminder.get("created_at", "")))
+    return _json_safe(reminders)
 
 
 # ============================================================

@@ -10,13 +10,24 @@ import {
 } from 'react-native';
 import {getCareGuidance} from '../src/services/api';
 
-function AIGuidanceScreen({infantId}: {infantId?: string}) {
+function AIGuidanceScreen({
+  route,
+}: {
+  route?: {params?: {infantId?: string; user?: {baby_id?: string}}};
+}) {
+  const infantId =
+    route?.params?.infantId || route?.params?.user?.baby_id || '';
   const [guidance, setGuidance] = React.useState<string[]>([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
 
   React.useEffect(() => {
-    if (!infantId?.trim()) return;
+    if (!infantId.trim()) {
+      setGuidance([]);
+      setError('Sign in with a linked baby profile to load AI guidance.');
+      return;
+    }
+    setError('');
     setLoading(true);
     getCareGuidance(infantId.trim())
       .then(result => setGuidance(result.guidance))

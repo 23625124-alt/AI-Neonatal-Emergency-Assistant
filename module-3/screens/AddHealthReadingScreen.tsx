@@ -11,9 +11,10 @@ import {
   View,
 } from 'react-native';
 
-import API from '../services/api';
+import {submitReading} from '../src/services/api';
+import {NeonatalReadingPayload} from '../src/types/api';
 
-function AddHealthReadingScreen({navigation}: any) {
+function AddHealthReadingScreen({navigation, route}: any) {
   const [temperature, setTemperature] = useState('');
   const [heartRate, setHeartRate] = useState('');
   const [respiratoryRate, setRespiratoryRate] = useState('');
@@ -52,9 +53,13 @@ function AddHealthReadingScreen({navigation}: any) {
         : [];
 
       // Data sent to FastAPI backend
-      const payload = {
-        infant_id: 'demo-baby-001',
-        simulated: true,
+      const payload: NeonatalReadingPayload = {
+        infant_id:
+          route?.params?.user?.baby_id ||
+          route?.params?.infantId ||
+          '',
+        simulated: false,
+        recorded_at: new Date().toISOString(),
 
         gender: 'Not specified',
         gestational_age_weeks: 38,
@@ -95,14 +100,15 @@ function AddHealthReadingScreen({navigation}: any) {
         payload,
       );
 
-      // Send data to backend
-      const response = await API.post(
-        '/monitoring/readings',
-        payload,
-      );
+      if (!payload.infant_id) {
+        throw new Error('Baby profile is not linked to this account.');
+      }
+
+      // Send data to the same typed API client used by the other reading screens.
+      const response = await submitReading(payload);
 
       // Get backend response
-      const result = response.data;
+      const result = response;
 
       console.log(
         'Backend Response:',
@@ -124,7 +130,10 @@ function AddHealthReadingScreen({navigation}: any) {
           [
             {
               text: 'OK',
-              onPress: () => navigation.navigate('BabyHealth'),
+              onPress: () =>
+                navigation.navigate('BabyHealth', {
+                  user: route?.params?.user,
+                }),
             },
           ],
         );
@@ -135,7 +144,10 @@ function AddHealthReadingScreen({navigation}: any) {
           [
             {
               text: 'OK',
-              onPress: () => navigation.navigate('BabyHealth'),
+              onPress: () =>
+                navigation.navigate('BabyHealth', {
+                  user: route?.params?.user,
+                }),
             },
           ],
         );

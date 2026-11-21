@@ -12,7 +12,7 @@ test('loads care guidance for an infant', async () => {
 
   await getCareGuidance('infant 1');
 
-  expect(fetchMock).toHaveBeenCalledWith('http://127.0.0.1:8000/care/infant%201', undefined);
+  expect(fetchMock).toHaveBeenCalledWith('http://127.0.0.1:8001/care/infant%201', undefined);
 });
 
 test('creates a validated care reminder through the existing endpoint', async () => {
@@ -21,7 +21,7 @@ test('creates a validated care reminder through the existing endpoint', async ()
 
   await createReminder(reminder);
 
-  expect(fetchMock).toHaveBeenCalledWith('http://127.0.0.1:8000/care/reminders', {
+  expect(fetchMock).toHaveBeenCalledWith('http://127.0.0.1:8001/care/reminders', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(reminder),

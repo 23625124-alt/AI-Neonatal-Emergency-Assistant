@@ -18,14 +18,14 @@ This is not a medical diagnostic application. It does not integrate physical sen
 - Monitoring-history view.
 - Backend/network error handling.
 
-The software simulator remains in `../xai-module/monitoring/simulator.py` and sends `simulated: true` readings to the same endpoint. The React Native app does not duplicate simulator or model logic.
+The software simulator remains in `../xai-module/monitoring/simulator.py` and sends `simulated: true` readings to the same endpoint. Run it with `python -m monitoring.simulator --infant-id <registered-baby-id>`. The React Native app does not duplicate simulator or model logic.
 
 ## Backend URL
 
 The default URL is configured in `src/config/environment.ts`:
 
-- Android emulator: `http://10.0.2.2:8000`
-- iOS simulator: `http://127.0.0.1:8000`
+- Android emulator: `http://10.0.2.2:8001`
+- iOS simulator: `http://127.0.0.1:8001`
 
 Use a host LAN address for a physical development device. The FastAPI server must be running separately.
 

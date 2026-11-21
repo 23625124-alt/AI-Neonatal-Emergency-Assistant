@@ -9,13 +9,41 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {createReminder} from '../src/services/api';
+import {createReminder, getReminders} from '../src/services/api';
+import {Reminder} from '../src/types/api';
 
-function RemindersScreen({infantId}: {infantId?: string}) {
+function RemindersScreen({
+  route,
+}: {
+  route?: {params?: {infantId?: string; user?: {baby_id?: string}}};
+}) {
+  const infantId =
+    route?.params?.infantId || route?.params?.user?.baby_id || '';
   const [title, setTitle] = React.useState('');
   const [dueDate, setDueDate] = React.useState('');
+  const [reminders, setReminders] = React.useState<Reminder[]>([]);
   const [status, setStatus] = React.useState('');
   const [loading, setLoading] = React.useState(false);
+  const [loadingReminders, setLoadingReminders] = React.useState(false);
+
+  const loadReminders = React.useCallback(async () => {
+    if (!infantId.trim()) {
+      setStatus('Sign in with a linked baby profile to manage reminders.');
+      return;
+    }
+    setLoadingReminders(true);
+    try {
+      setReminders(await getReminders(infantId.trim()));
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : 'Unable to load reminders.');
+    } finally {
+      setLoadingReminders(false);
+    }
+  }, [infantId]);
+
+  React.useEffect(() => {
+    loadReminders();
+  }, [loadReminders]);
 
   const saveReminder = async () => {
     if (!infantId?.trim() || !title.trim() || !dueDate.trim()) {
@@ -29,6 +57,7 @@ function RemindersScreen({infantId}: {infantId?: string}) {
       setStatus('Reminder saved to the research prototype backend.');
       setTitle('');
       setDueDate('');
+      await loadReminders();
     } catch {
       setStatus('Unable to save the reminder. Check that the FastAPI backend is running.');
     } finally {
@@ -60,6 +89,17 @@ function RemindersScreen({infantId}: {infantId?: string}) {
           <TextInput accessibilityLabel="Reminder due date" style={styles.input} value={dueDate} onChangeText={setDueDate} placeholder="YYYY-MM-DD" />
           {loading ? <ActivityIndicator accessibilityLabel="Saving reminder" /> : <Button title="Save reminder" onPress={saveReminder} />}
           {!!status && <Text style={styles.infoText}>{status}</Text>}
+        </View>
+        <View style={styles.createCard}>
+          <Text style={styles.infoTitle}>Saved reminders</Text>
+          {loadingReminders ? <ActivityIndicator accessibilityLabel="Loading reminders" /> :
+            reminders.length === 0 ? <Text style={styles.infoText}>No reminders saved for this baby.</Text> :
+            reminders.map(reminder => (
+              <View key={reminder.id} style={styles.reminderCard}>
+                <Text style={styles.reminderTitle}>{reminder.title}</Text>
+                <Text style={styles.time}>{reminder.due_date}</Text>
+              </View>
+            ))}
         </View>
       </ScrollView>
     </SafeAreaView>

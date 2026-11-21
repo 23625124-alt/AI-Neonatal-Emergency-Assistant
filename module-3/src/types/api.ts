@@ -78,6 +78,11 @@ export type CareGuidance = {
 };
 export type ReminderPayload = { infant_id: string; title: string; due_date: string; category: string };
 export type Reminder = ReminderPayload & { id: string; created_at: string };
+export type HealthResponse = {
+  status: string;
+  model_status: string;
+  storage_backend: 'mongodb' | 'json';
+};
 export type FeedingLogPayload = {
   infant_id: string;
   log_date: string;

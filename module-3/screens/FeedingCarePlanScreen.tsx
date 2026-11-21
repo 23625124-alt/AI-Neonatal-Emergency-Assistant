@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -11,6 +11,7 @@ import {
 
 import {
   getBabyProfile,
+  getFeedingLogs,
   getMonitoringHistory,
 } from '../src/services/api';
 
@@ -22,13 +23,10 @@ function FeedingCarePlanScreen({route}: any) {
 
   const [baby, setBaby] = useState<any>(null);
   const [latestReading, setLatestReading] = useState<any>(null);
+  const [latestFeedingLog, setLatestFeedingLog] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadFeedingData();
-  }, []);
-
-  const loadFeedingData = async () => {
+  const loadFeedingData = useCallback(async () => {
     if (!infantId) {
       Alert.alert(
         'Baby information unavailable',
@@ -41,10 +39,11 @@ function FeedingCarePlanScreen({route}: any) {
     try {
       setLoading(true);
 
-      const [babyResponse, historyResponse] =
+      const [babyResponse, historyResponse, feedingLogs] =
         await Promise.all([
           getBabyProfile(infantId),
           getMonitoringHistory(infantId),
+          getFeedingLogs(infantId),
         ]);
 
       setBaby(babyResponse?.baby || babyResponse);
@@ -53,6 +52,9 @@ function FeedingCarePlanScreen({route}: any) {
 
       if (readings.length > 0) {
         setLatestReading(readings[0]);
+      }
+      if (feedingLogs.length > 0) {
+        setLatestFeedingLog(feedingLogs[0]);
       }
     } catch (error: any) {
       Alert.alert(
@@ -63,7 +65,11 @@ function FeedingCarePlanScreen({route}: any) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [infantId]);
+
+  useEffect(() => {
+    loadFeedingData();
+  }, [loadFeedingData]);
 
   if (loading) {
     return (
@@ -86,6 +92,7 @@ function FeedingCarePlanScreen({route}: any) {
     'As advised by healthcare professional';
 
   const feedingFrequency =
+    latestFeedingLog?.feeding_count ??
     latestReading?.feeding_frequency_per_day;
 
   const ageDisplay =
